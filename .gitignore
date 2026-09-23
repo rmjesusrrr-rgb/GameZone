@@ -1,0 +1,6 @@
+# Ignorar ejecutables y documentos de texto personales
+*.exe
+*.docx
+*.doc
+.DS_Store
+Thumbs.db
