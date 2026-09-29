@@ -3,225 +3,987 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameZone - Tienda de Videojuegos</title>
+    <meta name="description" content="GameZone Store - Tu portal definitivo de videojuegos oficiales. Explora los mejores títulos de carreras, shooters y aventura con compra 100% segura.">
+    <title>GameZone Store | Tu Tienda Oficial de Videojuegos</title>
+    
+    <!-- Fuentes Google: Outfit para títulos gamer e Inter para texto ultra legible -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Hoja de estilos independiente estándar -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <!-- ==========================================
-         1. ENCABEZADO Y MENÚ DE NAVEGACIÓN
-         ========================================== -->
+    <!-- ==========================================================================
+         1. HEADER Y NAVEGACIÓN
+         ========================================================================== -->
     <header>
-        <div>
-            <h2>🎮 GameZone Store</h2>
-            <p>Tu portal favorito de videojuegos oficiales</p>
+        <div class="container header-content">
+            <!-- Logo de GameZone con Isotipo de Control -->
+            <a href="#inicio" class="brand-logo" aria-label="GameZone Store Inicio">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">GAME<span>ZONE</span></span>
+                    <span class="brand-tagline">Official Gaming Store</span>
+                </div>
+            </a>
+
+            <!-- Menú de Filtros tipo Pills/Botones -->
+            <nav class="filter-nav" role="tablist" aria-label="Filtrar por categoría">
+                <button class="filter-pill active" data-filter="all" role="tab" aria-selected="true">
+                    <span>🎮</span> Todos
+                </button>
+                <button class="filter-pill" data-filter="carreras" role="tab" aria-selected="false">
+                    <span>🏎️</span> Carreras
+                </button>
+                <button class="filter-pill" data-filter="shooters" role="tab" aria-selected="false">
+                    <span>🎯</span> Shooters
+                </button>
+                <button class="filter-pill" data-filter="aventura" role="tab" aria-selected="false">
+                    <span>🗺️</span> Aventura
+                </button>
+                <a href="#contacto" class="nav-contact-btn">
+                    <span>📞</span> Soporte
+                </a>
+            </nav>
         </div>
-        
-        <nav>
-            <ul>
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#carreras">Juegos de Carreras</a></li>
-                <li><a href="#shooters">Juegos Shooters</a></li>
-                <li><a href="#aventura">Juegos de Aventura</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </nav>
     </header>
 
-    <hr>
+    <main>
+        <!-- ==========================================================================
+             2. HERO SECTION (PORTADA)
+             ========================================================================== -->
+        <section id="inicio" class="hero-section">
+            <div class="container">
+                <div class="hero-banner">
+                    <div class="hero-content">
+                        <!-- Subtítulo superior -->
+                        <div class="hero-badge">
+                            <span class="pulse-point"></span>
+                            TU TIENDA DE VIDEOJUEGOS
+                        </div>
 
-    <!-- ==========================================
-         2. SECCIÓN PRINCIPAL (HERO)
-         ========================================== -->
-    <section id="inicio">
-        <h1>Bienvenido a GameZone: Los Mejores Videojuegos en un Solo Lugar</h1>
-        <p>
-            Explora nuestra selección de los títulos más populares de carreras, disparos y aventura. 
-            Todos los enlaces te dirigen a las tiendas oficiales para que compres de forma 100% segura.
-        </p>
-        <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=700&q=80" alt="Control de videojuegos y setup gamer" width="600">
-    </section>
+                        <!-- Título H1 con acento de color en "Conquista." -->
+                        <h1 class="hero-title">
+                            Juega. Compite. <span class="accent-word">Conquista.</span>
+                        </h1>
 
-    <hr>
+                        <!-- Párrafo descriptivo sobre la compra segura en tiendas oficiales -->
+                        <p class="hero-description">
+                            Explora nuestra cuidada selección de los mejores títulos para PC y consolas. 
+                            Todos los enlaces te dirigen directamente a las <strong>plataformas y tiendas oficiales</strong> 
+                            (Steam, PlayStation Store, Xbox y Nintendo) para garantizarte licencias originales, 
+                            descargas verificadas y transacciones <strong>100% seguras</strong>.
+                        </p>
 
-    <!-- ==========================================
-         3. SECCIÓN: JUEGOS DE CARRERAS
-         ========================================== -->
-    <section id="carreras">
-        <h2>🏎️ Juegos de Carreras</h2>
-        <p>Siente la adrenalina de la velocidad, los mejores autos y pistas del mundo.</p>
+                        <!-- Indicadores de confianza -->
+                        <div class="hero-features">
+                            <div class="hero-feature-item">
+                                <span class="hero-feature-icon">🛡️</span>
+                                <div class="hero-feature-text">
+                                    <strong>Licencias Oficiales</strong>
+                                    <span>Activación directa garantizada</span>
+                                </div>
+                            </div>
+                            <div class="hero-feature-item">
+                                <span class="hero-feature-icon">⚡</span>
+                                <div class="hero-feature-text">
+                                    <strong>Sin Intermediarios</strong>
+                                    <span>Precios reales y ofertas directas</span>
+                                </div>
+                            </div>
+                            <div class="hero-feature-item">
+                                <span class="hero-feature-icon">⭐</span>
+                                <div class="hero-feature-text">
+                                    <strong>Top Metascore</strong>
+                                    <span>Los juegos mejor valorados</span>
+                                </div>
+                            </div>
+                            <div class="hero-feature-item">
+                                <span class="hero-feature-icon">🚀</span>
+                                <div class="hero-feature-text">
+                                    <strong>Comunidad Activa</strong>
+                                    <span>Soporte gamer 24/7</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <!-- Juego 1 -->
-        <article>
-            <h3>1. Forza Horizon 5</h3>
-            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1551360/header.jpg" alt="Portada de Forza Horizon 5" width="350">
-            <p>
-                Explora los hermosos y vibrantes paisajes de mundo abierto de México a toda velocidad en cientos de los mejores automóviles del mundo.
-            </p>
-            <p>
-                <strong>Tienda oficial:</strong> 
-                <a href="https://store.steampowered.com/app/1551360/Forza_Horizon_5/" target="_blank">Comprar Forza Horizon 5 en Steam</a>
-            </p>
-        </article>
-        <br>
+        <!-- ==========================================================================
+             3. SECCIÓN: JUEGOS DE CARRERAS (ACENTO CIAN NEÓN #00e5ff)
+             ========================================================================== -->
+        <section id="carreras" class="category-section" data-category="carreras">
+            <div class="container">
+                <header class="category-header">
+                    <div class="category-info">
+                        <div class="category-bar"></div>
+                        <div class="category-titles">
+                            <h2 class="category-title">🏎️ Juegos de Carreras</h2>
+                            <p class="category-subtitle">Siente la adrenalina del asfalto, simuladores hiperrealistas y velocidad sin límites.</p>
+                        </div>
+                    </div>
+                    <span class="category-counter">
+                        <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>
+                        4 JUEGOS
+                    </span>
+                </header>
 
-        <!-- Juego 2 -->
-        <article>
-            <h3>2. Need for Speed Unbound</h3>
-            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1846380/header.jpg" alt="Portada de Need for Speed Unbound" width="350">
-            <p>
-                Compite contra el tiempo, supera a los policías y clasifícate en los desafíos semanales para llegar a The Grand, el desafío callejero definitivo.
-            </p>
-            <p>
-                <strong>Tienda oficial:</strong> 
-                <a href="https://store.steampowered.com/app/1846380/Need_for_Speed_Unbound/" target="_blank">Comprar Need for Speed Unbound en Steam</a>
-            </p>
-        </article>
-        <br>
+                <div class="games-grid">
+                    <!-- Juego 1: Forza Motorsport -->
+                    <article class="game-card">
+                        <div class="card-cover-wrapper">
+                            <img class="card-cover" 
+                                 src="https://cdn.cloudflare.steamstatic.com/steam/apps/2436700/header.jpg" 
+                                 alt="Portada de Forza Motorsport"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=700&q=80'">
+                            <span class="badge-year">2023</span>
+                            <span class="badge-platform">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+                                STEAM / XBOX
+                            </span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header-info">
+                                <h3 class="game-title">Forza Motorsport</h3>
+                                <p class="game-studio">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                    Turn 10 Studios • Xbox Game Studios
+                                </p>
+                            </div>
 
-        <!-- Juego 3 -->
-        <article>
-            <h3>3. EA SPORTS F1 23</h3>
-            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/2108330/header.jpg" alt="Portada de F1 23" width="350">
-            <p>
-                El videojuego oficial del Campeonato Mundial de Fórmula 1 de la FIA. Conduce rueda a rueda en los nuevos circuitos de Las Vegas y Qatar.
-            </p>
-            <p>
-                <strong>Tienda oficial:</strong> 
-                <a href="https://store.steampowered.com/app/2108330/F1_23/" target="_blank">Comprar F1 23 en Steam</a>
-            </p>
-        </article>
-    </section>
+                            <div class="genre-tags">
+                                <span class="genre-tag">Simulación</span>
+                                <span class="genre-tag">Carreras</span>
+                                <span class="genre-tag">Ray Tracing</span>
+                            </div>
 
-    <hr>
+                            <div class="rating-box">
+                                <div class="rating-labels">
+                                    <span class="rating-title">⭐ Metascore Oficial</span>
+                                    <span class="rating-score">84 / 100</span>
+                                </div>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 84%;"></div>
+                                </div>
+                            </div>
 
-    <!-- ==========================================
-         4. SECCIÓN: JUEGOS SHOOTERS
-         ========================================== -->
-    <section id="shooters">
-        <h2>🎯 Juegos Shooters (Disparos)</h2>
-        <p>Acción intensa en primera y tercera persona para poner a prueba tu puntería y reflejos.</p>
+                            <div class="card-footer">
+                                <div class="price-group">
+                                    <span class="price-label">Precio oficial</span>
+                                    <span class="price-amount">$69.99 USD</span>
+                                </div>
+                                <a href="https://store.steampowered.com/app/2436700/Forza_Motorsport/" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="btn-buy"
+                                   aria-label="Comprar Forza Motorsport en Steam">
+                                    <span>Comprar</span>
+                                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
 
-        <!-- Juego 1 -->
-        <article>
-            <h3>1. DOOM Eternal</h3>
-            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/782330/header.jpg" alt="Portada de DOOM Eternal" width="350">
-            <p>
-                Los ejércitos del infierno han invadido la Tierra. Conviértete en el Slayer en una épica campaña para vencer demonios en todas las dimensiones.
-            </p>
-            <p>
-                <strong>Tienda oficial:</strong> 
-                <a href="https://store.steampowered.com/app/782330/DOOM_Eternal/" target="_blank">Comprar DOOM Eternal en Steam</a>
-            </p>
-        </article>
-        <br>
+                    <!-- Juego 2: Gran Turismo 7 -->
+                    <article class="game-card">
+                        <div class="card-cover-wrapper">
+                            <img class="card-cover" 
+                                 src="https://gmedia.playstation.com/is/image/SIEPDC/gran-turismo-hub-keyart-01-en-08feb22?$1600px$" 
+                                 alt="Portada de Gran Turismo 7"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=700&q=80'">
+                            <span class="badge-year">2022</span>
+                            <span class="badge-platform">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+                                PLAYSTATION 5
+                            </span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header-info">
+                                <h3 class="game-title">Gran Turismo 7</h3>
+                                <p class="game-studio">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                    Polyphony Digital • Sony Interactive
+                                </p>
+                            </div>
 
-        <!-- Juego 2 -->
-        <article>
-            <h3>2. Call of Duty: Modern Warfare III</h3>
-            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/2519060/header.jpg" alt="Portada de Call of Duty Modern Warfare III" width="350">
-            <p>
-                Enfréntate a la amenaza definitiva en una campaña directa de acción cinematográfica y el modo multijugador más completo.
-            </p>
-            <p>
-                <strong>Tienda oficial:</strong> 
-                <a href="https://store.steampowered.com/app/2519060/Call_of_Duty_Modern_Warfare_III/" target="_blank">Comprar Call of Duty en Steam</a>
-            </p>
-        </article>
-        <br>
+                            <div class="genre-tags">
+                                <span class="genre-tag">Simulador Real</span>
+                                <span class="genre-tag">Competitivo</span>
+                                <span class="genre-tag">Física Real</span>
+                            </div>
 
-        <!-- Juego 3 -->
-        <article>
-            <h3>3. Halo Infinite</h3>
-            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1240440/header.jpg" alt="Portada de Halo Infinite" width="350">
-            <p>
-                Ponte la armadura del mayor héroe de la humanidad, el Master Chief, para experimentar una aventura épica y salvar la galaxia.
-            </p>
-            <p>
-                <strong>Tienda oficial:</strong> 
-                <a href="https://store.steampowered.com/app/1240440/Halo_Infinite/" target="_blank">Comprar Halo Infinite en Steam</a>
-            </p>
-        </article>
-    </section>
+                            <div class="rating-box">
+                                <div class="rating-labels">
+                                    <span class="rating-title">⭐ Metascore Oficial</span>
+                                    <span class="rating-score">87 / 100</span>
+                                </div>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 87%;"></div>
+                                </div>
+                            </div>
 
-    <hr>
+                            <div class="card-footer">
+                                <div class="price-group">
+                                    <span class="price-label">Precio oficial</span>
+                                    <span class="price-amount">$69.99 USD</span>
+                                </div>
+                                <a href="https://store.playstation.com/es-mx/concept/10000853" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="btn-buy"
+                                   aria-label="Comprar Gran Turismo 7 en PlayStation Store">
+                                    <span>Comprar</span>
+                                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
 
-    <!-- ==========================================
-         5. SECCIÓN: JUEGOS DE AVENTURA
-         ========================================== -->
-    <section id="aventura">
-        <h2>🗺️ Juegos de Aventura</h2>
-        <p>Mundos fantásticos, historias memorables y exploración sin límites.</p>
+                    <!-- Juego 3: Need for Speed Unbound -->
+                    <article class="game-card">
+                        <div class="card-cover-wrapper">
+                            <img class="card-cover" 
+                                 src="https://cdn.cloudflare.steamstatic.com/steam/apps/1846380/header.jpg" 
+                                 alt="Portada de Need for Speed Unbound"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=700&q=80'">
+                            <span class="badge-year">2022</span>
+                            <span class="badge-platform">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+                                STEAM / EA
+                            </span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header-info">
+                                <h3 class="game-title">Need for Speed Unbound</h3>
+                                <p class="game-studio">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                    Criterion Games • Electronic Arts
+                                </p>
+                            </div>
 
-        <!-- Juego 1 -->
-        <article>
-            <h3>1. The Witcher 3: Wild Hunt</h3>
-            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg" alt="Portada de The Witcher 3" width="350">
-            <p>
-                Eres Geralt de Rivia, cazador de monstruos. En un continente devastado por la guerra e infestado de criaturas, debes encontrar a la Niña de la Profecía.
-            </p>
-            <p>
-                <strong>Tienda oficial:</strong> 
-                <a href="https://store.steampowered.com/app/292030/The_Witcher_3_Wild_Hunt/" target="_blank">Comprar The Witcher 3 en Steam</a>
-            </p>
-        </article>
-        <br>
+                            <div class="genre-tags">
+                                <span class="genre-tag">Carreras Callejeras</span>
+                                <span class="genre-tag">Estilo Grafiti</span>
+                                <span class="genre-tag">Tuning</span>
+                            </div>
 
-        <!-- Juego 2 -->
-        <article>
-            <h3>2. God of War (2018)</h3>
-            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/header.jpg" alt="Portada de God of War" width="350">
-            <p>
-                Kratos vive ahora en el reino de los dioses y monstruos nórdicos. Deberá luchar por sobrevivir y enseñarle a su hijo Atreus a hacer lo mismo.
-            </p>
-            <p>
-                <strong>Tienda oficial:</strong> 
-                <a href="https://store.steampowered.com/app/1593500/God_of_War/" target="_blank">Comprar God of War en Steam</a>
-            </p>
-        </article>
-        <br>
+                            <div class="rating-box">
+                                <div class="rating-labels">
+                                    <span class="rating-title">⭐ Metascore Oficial</span>
+                                    <span class="rating-score">77 / 100</span>
+                                </div>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 77%;"></div>
+                                </div>
+                            </div>
 
-        <!-- Juego 3 -->
-        <article>
-            <h3>3. Red Dead Redemption 2</h3>
-            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg" alt="Portada de Red Dead Redemption 2" width="350">
-            <p>
-                América, 1899. Arthur Morgan y la banda de Van der Linde se ven obligados a huir mientras roban y luchan para sobrevivir en el implacable corazón de Estados Unidos.
-            </p>
-            <p>
-                <strong>Tienda oficial:</strong> 
-                <a href="https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/" target="_blank">Comprar Red Dead Redemption 2 en Steam</a>
-            </p>
-        </article>
-    </section>
+                            <div class="card-footer">
+                                <div class="price-group">
+                                    <span class="price-label">Precio oficial</span>
+                                    <span class="price-amount">$69.99 USD</span>
+                                </div>
+                                <a href="https://store.steampowered.com/app/1846380/Need_for_Speed_Unbound/" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="btn-buy"
+                                   aria-label="Comprar Need for Speed Unbound en Steam">
+                                    <span>Comprar</span>
+                                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
 
-    <hr>
+                    <!-- Juego 4: F1 24 -->
+                    <article class="game-card">
+                        <div class="card-cover-wrapper">
+                            <img class="card-cover" 
+                                 src="https://cdn.cloudflare.steamstatic.com/steam/apps/2488620/header.jpg" 
+                                 alt="Portada de EA Sports F1 24"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=700&q=80'">
+                            <span class="badge-year">2024</span>
+                            <span class="badge-platform">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+                                STEAM / FIA F1
+                            </span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header-info">
+                                <h3 class="game-title">F1 24</h3>
+                                <p class="game-studio">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                    Codemasters • EA Sports
+                                </p>
+                            </div>
 
-    <!-- ==========================================
-         6. SECCIÓN: CONTACTO RÁPIDO
-         ========================================== -->
-    <section id="contacto">
-        <h2>📞 Contacto y Soporte</h2>
-        <p><strong>Dirección:</strong> Av. de los Gamers #404, Ciudad de México</p>
-        <p><strong>Horario de atención:</strong> Lunes a Domingo de 9:00 AM a 8:00 PM</p>
-        <p><strong>Teléfono:</strong> +52 (55) 5555-GAME (4263)</p>
-        <p><strong>Correo de soporte:</strong> soporte@gamezone.com</p>
-    </section>
+                            <div class="genre-tags">
+                                <span class="genre-tag">Fórmula 1</span>
+                                <span class="genre-tag">Mundial FIA</span>
+                                <span class="genre-tag">Multijugador</span>
+                            </div>
 
-    <hr>
+                            <div class="rating-box">
+                                <div class="rating-labels">
+                                    <span class="rating-title">⭐ Metascore Oficial</span>
+                                    <span class="rating-score">74 / 100</span>
+                                </div>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 74%;"></div>
+                                </div>
+                            </div>
 
-    <!-- ==========================================
+                            <div class="card-footer">
+                                <div class="price-group">
+                                    <span class="price-label">Precio oficial</span>
+                                    <span class="price-amount">$69.99 USD</span>
+                                </div>
+                                <a href="https://store.steampowered.com/app/2488620/F1_24/" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="btn-buy"
+                                   aria-label="Comprar F1 24 en Steam">
+                                    <span>Comprar</span>
+                                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             4. SECCIÓN: JUEGOS SHOOTERS (ACENTO PÚRPURA / FUCSIA #a855f7)
+             ========================================================================== -->
+        <section id="shooters" class="category-section" data-category="shooters">
+            <div class="container">
+                <header class="category-header">
+                    <div class="category-info">
+                        <div class="category-bar"></div>
+                        <div class="category-titles">
+                            <h2 class="category-title">🎯 Juegos Shooters</h2>
+                            <p class="category-subtitle">Reflejos al límite, puntería táctica y combates armados de alta intensidad.</p>
+                        </div>
+                    </div>
+                    <span class="category-counter">
+                        <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>
+                        4 JUEGOS
+                    </span>
+                </header>
+
+                <div class="games-grid">
+                    <!-- Juego 1: Call of Duty: Black Ops 6 -->
+                    <article class="game-card">
+                        <div class="card-cover-wrapper">
+                            <img class="card-cover" 
+                                 src="https://cdn.cloudflare.steamstatic.com/steam/apps/2933620/header.jpg" 
+                                 alt="Portada de Call of Duty: Black Ops 6"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=80'">
+                            <span class="badge-year">2024</span>
+                            <span class="badge-platform">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+                                STEAM / ACTIVISION
+                            </span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header-info">
+                                <h3 class="game-title">Call of Duty: Black Ops 6</h3>
+                                <p class="game-studio">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                    Treyarch & Raven • Activision
+                                </p>
+                            </div>
+
+                            <div class="genre-tags">
+                                <span class="genre-tag">FPS Táctico</span>
+                                <span class="genre-tag">Zombis</span>
+                                <span class="genre-tag">Campaña Espía</span>
+                            </div>
+
+                            <div class="rating-box">
+                                <div class="rating-labels">
+                                    <span class="rating-title">⭐ Metascore Oficial</span>
+                                    <span class="rating-score">85 / 100</span>
+                                </div>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 85%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                <div class="price-group">
+                                    <span class="price-label">Precio oficial</span>
+                                    <span class="price-amount">$69.99 USD</span>
+                                </div>
+                                <a href="https://store.steampowered.com/app/2933620/Call_of_Duty_Black_Ops_6/" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="btn-buy"
+                                   aria-label="Comprar Call of Duty: Black Ops 6 en Steam">
+                                    <span>Comprar</span>
+                                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Juego 2: Helldivers 2 -->
+                    <article class="game-card">
+                        <div class="card-cover-wrapper">
+                            <img class="card-cover" 
+                                 src="https://cdn.cloudflare.steamstatic.com/steam/apps/553850/header.jpg" 
+                                 alt="Portada de Helldivers 2"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?auto=format&fit=crop&w=700&q=80'">
+                            <span class="badge-year">2024</span>
+                            <span class="badge-platform">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+                                STEAM / PLAYSTATION
+                            </span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header-info">
+                                <h3 class="game-title">Helldivers 2</h3>
+                                <p class="game-studio">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                    Arrowhead Game Studios • PlayStation
+                                </p>
+                            </div>
+
+                            <div class="genre-tags">
+                                <span class="genre-tag">Cooperativo 4P</span>
+                                <span class="genre-tag">Disparos Sci-Fi</span>
+                                <span class="genre-tag">PvE Caótico</span>
+                            </div>
+
+                            <div class="rating-box">
+                                <div class="rating-labels">
+                                    <span class="rating-title">⭐ Metascore Oficial</span>
+                                    <span class="rating-score">82 / 100</span>
+                                </div>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 82%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                <div class="price-group">
+                                    <span class="price-label">Precio oficial</span>
+                                    <span class="price-amount">$39.99 USD</span>
+                                </div>
+                                <a href="https://store.steampowered.com/app/553850/HELLDIVERS_2/" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="btn-buy"
+                                   aria-label="Comprar Helldivers 2 en Steam">
+                                    <span>Comprar</span>
+                                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Juego 3: Rainbow Six Siege -->
+                    <article class="game-card">
+                        <div class="card-cover-wrapper">
+                            <img class="card-cover" 
+                                 src="https://cdn.cloudflare.steamstatic.com/steam/apps/359550/header.jpg" 
+                                 alt="Portada de Tom Clancy's Rainbow Six Siege"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=80'">
+                            <span class="badge-year">2024</span>
+                            <span class="badge-platform">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+                                STEAM / UBISOFT
+                            </span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header-info">
+                                <h3 class="game-title">Rainbow Six Siege</h3>
+                                <p class="game-studio">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                    Ubisoft Montreal • Ubisoft
+                                </p>
+                            </div>
+
+                            <div class="genre-tags">
+                                <span class="genre-tag">Táctico 5v5</span>
+                                <span class="genre-tag">Destrucción</span>
+                                <span class="genre-tag">Esports</span>
+                            </div>
+
+                            <div class="rating-box">
+                                <div class="rating-labels">
+                                    <span class="rating-title">⭐ Metascore Oficial</span>
+                                    <span class="rating-score">79 / 100</span>
+                                </div>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 79%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                <div class="price-group">
+                                    <span class="price-label">Precio oficial</span>
+                                    <span class="price-amount">$19.99 USD</span>
+                                </div>
+                                <a href="https://store.steampowered.com/app/359550/Tom_Clancys_Rainbow_Six_Siege/" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="btn-buy"
+                                   aria-label="Comprar Rainbow Six Siege en Steam">
+                                    <span>Comprar</span>
+                                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Juego 4: Valorant -->
+                    <article class="game-card">
+                        <div class="card-cover-wrapper">
+                            <img class="card-cover" 
+                                 src="https://images.igdb.com/igdb/image/upload/t_720p/cocqbp.jpg" 
+                                 alt="Portada de Valorant"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=80'">
+                            <span class="badge-year">2024</span>
+                            <span class="badge-platform">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+                                RIOT CLIENT / PC
+                            </span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header-info">
+                                <h3 class="game-title">Valorant</h3>
+                                <p class="game-studio">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                    Riot Games
+                                </p>
+                            </div>
+
+                            <div class="genre-tags">
+                                <span class="genre-tag">Hero Shooter</span>
+                                <span class="genre-tag">Disparos Tácticos</span>
+                                <span class="genre-tag">Competitivo</span>
+                            </div>
+
+                            <div class="rating-box">
+                                <div class="rating-labels">
+                                    <span class="rating-title">⭐ Metascore Oficial</span>
+                                    <span class="rating-score">80 / 100</span>
+                                </div>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 80%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                <div class="price-group">
+                                    <span class="price-label">Precio oficial</span>
+                                    <span class="price-amount price-free">GRATIS</span>
+                                </div>
+                                <a href="https://playvalorant.com/es-mx/" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="btn-buy"
+                                   aria-label="Jugar Valorant gratis en Riot Games">
+                                    <span>Jugar Gratis</span>
+                                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             5. SECCIÓN: JUEGOS DE AVENTURA (ACENTO VERDE ESMERALDA #00f5a0)
+             ========================================================================== -->
+        <section id="aventura" class="category-section" data-category="aventura">
+            <div class="container">
+                <header class="category-header">
+                    <div class="category-info">
+                        <div class="category-bar"></div>
+                        <div class="category-titles">
+                            <h2 class="category-title">🗺️ Juegos de Aventura</h2>
+                            <p class="category-subtitle">Mundos fantásticos, historias inolvidables y exploración sin fronteras.</p>
+                        </div>
+                    </div>
+                    <span class="category-counter">
+                        <svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>
+                        4 JUEGOS
+                    </span>
+                </header>
+
+                <div class="games-grid">
+                    <!-- Juego 1: The Legend of Zelda: Tears of the Kingdom -->
+                    <article class="game-card">
+                        <div class="card-cover-wrapper">
+                            <img class="card-cover" 
+                                 src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000063714/desc/64516ff8d519b7879685601df5e8c15fdb9f2b84234c9c8e87498cffc94e0730" 
+                                 alt="Portada de The Legend of Zelda: Tears of the Kingdom"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=700&q=80'">
+                            <span class="badge-year">2023</span>
+                            <span class="badge-platform">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+                                NINTENDO SWITCH
+                            </span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header-info">
+                                <h3 class="game-title">The Legend of Zelda: TotK</h3>
+                                <p class="game-studio">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                    Nintendo EPD • Nintendo
+                                </p>
+                            </div>
+
+                            <div class="genre-tags">
+                                <span class="genre-tag">Mundo Abierto</span>
+                                <span class="genre-tag">Aventura Épica</span>
+                                <span class="genre-tag">Fantasía</span>
+                            </div>
+
+                            <div class="rating-box">
+                                <div class="rating-labels">
+                                    <span class="rating-title">⭐ Metascore Oficial</span>
+                                    <span class="rating-score">96 / 100</span>
+                                </div>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 96%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                <div class="price-group">
+                                    <span class="price-label">Precio oficial</span>
+                                    <span class="price-amount">$69.99 USD</span>
+                                </div>
+                                <a href="https://www.nintendo.com/es-mx/store/products/the-legend-of-zelda-tears-of-the-kingdom-switch/" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="btn-buy"
+                                   aria-label="Comprar Zelda Tears of the Kingdom en Nintendo eShop">
+                                    <span>Comprar</span>
+                                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Juego 2: Baldur's Gate 3 -->
+                    <article class="game-card">
+                        <div class="card-cover-wrapper">
+                            <img class="card-cover" 
+                                 src="https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/header.jpg" 
+                                 alt="Portada de Baldur's Gate 3"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=700&q=80'">
+                            <span class="badge-year">2023 (GOTY)</span>
+                            <span class="badge-platform">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+                                STEAM / LARIAN
+                            </span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header-info">
+                                <h3 class="game-title">Baldur's Gate 3</h3>
+                                <p class="game-studio">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                    Larian Studios
+                                </p>
+                            </div>
+
+                            <div class="genre-tags">
+                                <span class="genre-tag">RPG D&D</span>
+                                <span class="genre-tag">Rol por Turnos</span>
+                                <span class="genre-tag">Narrativa Libre</span>
+                            </div>
+
+                            <div class="rating-box">
+                                <div class="rating-labels">
+                                    <span class="rating-title">⭐ Metascore Oficial</span>
+                                    <span class="rating-score">96 / 100</span>
+                                </div>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 96%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                <div class="price-group">
+                                    <span class="price-label">Precio oficial</span>
+                                    <span class="price-amount">$59.99 USD</span>
+                                </div>
+                                <a href="https://store.steampowered.com/app/1086940/Baldurs_Gate_3/" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="btn-buy"
+                                   aria-label="Comprar Baldur's Gate 3 en Steam">
+                                    <span>Comprar</span>
+                                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Juego 3: Elden Ring -->
+                    <article class="game-card">
+                        <div class="card-cover-wrapper">
+                            <img class="card-cover" 
+                                 src="https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/header.jpg" 
+                                 alt="Portada de Elden Ring"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=700&q=80'">
+                            <span class="badge-year">2022 (GOTY)</span>
+                            <span class="badge-platform">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+                                STEAM / FROMSOFTWARE
+                            </span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header-info">
+                                <h3 class="game-title">Elden Ring</h3>
+                                <p class="game-studio">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                    FromSoftware • Bandai Namco
+                                </p>
+                            </div>
+
+                            <div class="genre-tags">
+                                <span class="genre-tag">Soulslike</span>
+                                <span class="genre-tag">Fantasía Oscura</span>
+                                <span class="genre-tag">Desafío Épico</span>
+                            </div>
+
+                            <div class="rating-box">
+                                <div class="rating-labels">
+                                    <span class="rating-title">⭐ Metascore Oficial</span>
+                                    <span class="rating-score">96 / 100</span>
+                                </div>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 96%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                <div class="price-group">
+                                    <span class="price-label">Precio oficial</span>
+                                    <span class="price-amount">$59.99 USD</span>
+                                </div>
+                                <a href="https://store.steampowered.com/app/1245620/ELDEN_RING/" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="btn-buy"
+                                   aria-label="Comprar Elden Ring en Steam">
+                                    <span>Comprar</span>
+                                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Juego 4: Alan Wake 2 -->
+                    <article class="game-card">
+                        <div class="card-cover-wrapper">
+                            <img class="card-cover" 
+                                 src="https://cdn2.unrealengine.com/egs-alan-wake-2-remedy-entertainment-g1a-00-1920x1080-60b731d794cb.jpg" 
+                                 alt="Portada de Alan Wake 2"
+                                 loading="lazy"
+                                 onerror="this.src='https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=700&q=80'">
+                            <span class="badge-year">2023</span>
+                            <span class="badge-platform">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+                                EPIC GAMES / REMEDY
+                            </span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header-info">
+                                <h3 class="game-title">Alan Wake 2</h3>
+                                <p class="game-studio">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                    Remedy Entertainment • Epic Games
+                                </p>
+                            </div>
+
+                            <div class="genre-tags">
+                                <span class="genre-tag">Terror Psicológico</span>
+                                <span class="genre-tag">Misterio</span>
+                                <span class="genre-tag">Survival Horror</span>
+                            </div>
+
+                            <div class="rating-box">
+                                <div class="rating-labels">
+                                    <span class="rating-title">⭐ Metascore Oficial</span>
+                                    <span class="rating-score">89 / 100</span>
+                                </div>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: 89%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                <div class="price-group">
+                                    <span class="price-label">Precio oficial</span>
+                                    <span class="price-amount">$49.99 USD</span>
+                                </div>
+                                <a href="https://store.epicgames.com/es-ES/p/alan-wake-2" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="btn-buy"
+                                   aria-label="Comprar Alan Wake 2 en Epic Games Store">
+                                    <span>Comprar</span>
+                                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             6. SECCIÓN DE CONTACTO RÁPIDO Y SOPORTE GAMER
+             ========================================================================== -->
+        <section id="contacto" class="contact-section">
+            <div class="container">
+                <div class="contact-card-main">
+                    <div class="contact-header">
+                        <span class="contact-badge">📞 ATENCIÓN Y COMUNIDAD</span>
+                        <h2 class="contact-title">Estamos para Respaldarte</h2>
+                        <p class="contact-desc">
+                            ¿Tienes dudas sobre la activación de algún código, requerimientos técnicos de tu PC o plataformas soportadas? Contáctanos de inmediato.
+                        </p>
+                    </div>
+
+                    <!-- Canales de contacto -->
+                    <div class="contact-channels-grid">
+                        <!-- Ubicación -->
+                        <div class="channel-item">
+                            <div class="channel-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            </div>
+                            <div class="channel-info">
+                                <h4>Sede Central</h4>
+                                <p>Av. de los Gamers #404, Ciudad de México</p>
+                            </div>
+                        </div>
+
+                        <!-- Horario -->
+                        <div class="channel-item">
+                            <div class="channel-icon">
+                                <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            </div>
+                            <div class="channel-info">
+                                <h4>Horario de Atención</h4>
+                                <p>Lunes a Domingo • 9:00 AM a 8:00 PM</p>
+                            </div>
+                        </div>
+
+                        <!-- Teléfono -->
+                        <div class="channel-item">
+                            <div class="channel-icon">
+                                <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                            </div>
+                            <div class="channel-info">
+                                <h4>Teléfono Directo</h4>
+                                <p><a href="tel:+525555554263">+52 (55) 5555-GAME (4263)</a></p>
+                            </div>
+                        </div>
+
+                        <!-- Correo Electrónico -->
+                        <div class="channel-item">
+                            <div class="channel-icon">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            </div>
+                            <div class="channel-info">
+                                <h4>Soporte Oficial</h4>
+                                <p><a href="mailto:soporte@gamezone.com">soporte@gamezone.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Redes de la Comunidad -->
+                    <div class="community-banner">
+                        <div class="community-text">
+                            <strong>Únete a la Comunidad Oficial de GameZone</strong>
+                            <span>Participa en torneos semanales, sorteos y salas de voz activas.</span>
+                        </div>
+                        <div class="social-links">
+                            <!-- Discord -->
+                            <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="social-pill discord">
+                                <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                                <span>Discord Server</span>
+                            </a>
+                            <!-- Twitch -->
+                            <a href="https://twitch.tv" target="_blank" rel="noopener noreferrer" class="social-pill twitch">
+                                <svg viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg>
+                                <span>Canal de Twitch</span>
+                            </a>
+                            <!-- YouTube -->
+                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-pill youtube">
+                                <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                                <span>YouTube Gaming</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==========================================================================
          7. PIE DE PÁGINA (FOOTER)
-         ========================================== -->
+         ========================================================================== -->
     <footer>
-        <p><strong>Síguenos en nuestras redes:</strong></p>
-        <ul>
-            <li><a href="https://discord.com" target="_blank">Servidor de Discord</a></li>
-            <li><a href="https://twitter.com" target="_blank">Twitter / X</a></li>
-            <li><a href="https://youtube.com" target="_blank">Canal de YouTube</a></li>
-            <li><a href="https://twitch.tv" target="_blank">Canal de Twitch</a></li>
-        </ul>
-        <p>&copy; 2026 GameZone Store. Todos los derechos reservados.</p>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-brand">
+                    <div class="brand-icon" style="width: 32px; height: 32px;">
+                        <svg viewBox="0 0 24 24" style="width: 18px; height: 18px;">
+                            <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                        </svg>
+                    </div>
+                    <span>GameZone Store</span>
+                </div>
+
+                <ul class="footer-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#carreras">Carreras</a></li>
+                    <li><a href="#shooters">Shooters</a></li>
+                    <li><a href="#aventura">Aventura</a></li>
+                    <li><a href="#contacto">Soporte</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 GameZone Store. Todos los derechos reservados. Diseñado para gamers de élite.</p>
+                <div class="security-badge">
+                    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                    <span>Conexión y Transacciones Oficiales Seguras</span>
+                </div>
+            </div>
+        </div>
     </footer>
 
+    <!-- Script interactivo independiente estándar -->
+    <script src="script.js"></script>
 </body>
 </html>
