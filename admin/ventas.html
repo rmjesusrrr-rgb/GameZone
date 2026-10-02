@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameZone Admin | Control de Ventas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <!-- ==========================================================================
+         SIDEBAR FIJO (220px)
+         ========================================================================== -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="brand-logo">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">GAME<span>ZONE</span></span>
+                    <span class="brand-tagline">Admin Panel</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Usuario Activo -->
+        <div class="user-profile-widget">
+            <div class="user-avatar">👨‍💻</div>
+            <div class="user-info">
+                <div class="user-name">Carlos Méndez</div>
+                <span class="user-role-badge">Super Admin</span>
+            </div>
+        </div>
+
+        <!-- Enlaces de Navegación -->
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-link">
+                <span class="nav-icon">🏠</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="usuarios.html" class="nav-link">
+                <span class="nav-icon">👥</span>
+                <span>Usuarios</span>
+            </a>
+            <a href="inventario.html" class="nav-link">
+                <span class="nav-icon">📦</span>
+                <span>Inventario</span>
+            </a>
+            <a href="ventas.html" class="nav-link active">
+                <span class="nav-icon">💳</span>
+                <span>Ventas</span>
+            </a>
+            <a href="estadisticas.html" class="nav-link">
+                <span class="nav-icon">📊</span>
+                <span>Estadísticas</span>
+            </a>
+        </nav>
+
+        <!-- Pie Sidebar -->
+        <div class="sidebar-footer">
+            <a href="../index.html" class="btn-public-store" target="_blank">
+                <span>🌐</span> Ver Tienda Pública
+            </a>
+            <a href="login.html" class="btn-logout">
+                <span>🚪</span> Cerrar Sesión
+            </a>
+        </div>
+    </aside>
+
+    <!-- ==========================================================================
+         ÁREA DE CONTENIDO (Scroll Independiente)
+         ========================================================================== -->
+    <main class="admin-main">
+        <!-- Header Superior -->
+        <header class="admin-header">
+            <div class="page-title-group">
+                <h1>💳 Registro y Control de Ventas</h1>
+                <p>Auditoría de transacciones, métodos de pago, sucursales y reembolsos</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-secondary" onclick="exportCSV()">
+                    <span>📥 Exportar CSV</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Contenedor Principal -->
+        <div class="admin-content">
+
+            <!-- 1. RESUMEN EN 3 CARDS -->
+            <section class="kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                <!-- Card 1 -->
+                <article class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-title">Ventas de Hoy</span>
+                        <div class="kpi-icon">⚡</div>
+                    </div>
+                    <div class="kpi-value">$3,240.00</div>
+                    <div class="kpi-bottom">
+                        <span class="badge-trend-up">▲ 54 órdenes procesadas</span>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-title">Ventas del Mes</span>
+                        <div class="kpi-icon">💰</div>
+                    </div>
+                    <div class="kpi-value">$128,450.00</div>
+                    <div class="kpi-bottom">
+                        <span class="badge-trend-up">▲ +12% sobre la meta</span>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-title">Ventas Pendientes</span>
+                        <div class="kpi-icon">⏳</div>
+                    </div>
+                    <div class="kpi-value">12</div>
+                    <div class="kpi-bottom">
+                        <span style="color: var(--amber); font-weight: 700;">Validación de pago en curso</span>
+                    </div>
+                </article>
+            </section>
+
+            <!-- 2. BARRA DE FILTROS AVANZADOS -->
+            <section class="filter-bar">
+                <div class="filter-group-left">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="salesSearchInput" class="search-input" placeholder="Buscar orden, cliente, juego...">
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                        <input type="date" id="dateStart" class="form-control" style="padding: 0.45rem 0.65rem; font-size: 0.8rem; width: 135px;" value="2026-09-25">
+                        <span style="color: var(--text-dark); font-size: 0.8rem;">a</span>
+                        <input type="date" id="dateEnd" class="form-control" style="padding: 0.45rem 0.65rem; font-size: 0.8rem; width: 135px;" value="2026-10-01">
+                    </div>
+
+                    <select id="salesStatusFilter" class="select-filter">
+                        <option value="all">Todos los Estados</option>
+                        <option value="Completado">Completado</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Reembolsado">Reembolsado</option>
+                    </select>
+
+                    <select id="paymentFilter" class="select-filter">
+                        <option value="all">Método de Pago</option>
+                        <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
+                        <option value="PayPal">PayPal</option>
+                        <option value="Transferencia SPEI">Transferencia SPEI</option>
+                        <option value="Cripto / USDT">Cripto / USDT</option>
+                    </select>
+
+                    <select id="branchFilter" class="select-filter">
+                        <option value="all">Todas las Sucursales</option>
+                        <option value="Tienda Online">Tienda Online</option>
+                        <option value="Matriz Central">Matriz Central</option>
+                        <option value="Sucursal Norte">Sucursal Norte</option>
+                        <option value="Sucursal Centro">Sucursal Centro</option>
+                    </select>
+                </div>
+
+                <div class="filter-group-right">
+                    <span style="font-size: 0.84rem; color: var(--text-muted);" id="salesCountText">Mostrando 10 transacciones</span>
+                </div>
+            </section>
+
+            <!-- 3. TABLA DE TRANSACCIONES (10 VENTAS REALISTAS) -->
+            <section class="card-panel">
+                <div class="table-responsive">
+                    <table class="admin-table" id="salesTable">
+                        <thead>
+                            <tr>
+                                <th>ID Orden</th>
+                                <th>Fecha & Hora</th>
+                                <th>Cliente</th>
+                                <th>Juego Comprado</th>
+                                <th>Precio</th>
+                                <th>Método de Pago</th>
+                                <th>Sucursal</th>
+                                <th>Estado</th>
+                                <th style="text-align: right;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Venta 1 -->
+                            <tr data-status="Completado" data-payment="Tarjeta de Crédito" data-branch="Tienda Online">
+                                <td><strong>#GZ-10492</strong></td>
+                                <td>01 Oct 2026, 18:24</td>
+                                <td>Roberto Sánchez<div style="font-size: 0.72rem; color: var(--text-muted);">r.sanchez@gmail.com</div></td>
+                                <td>Forza Horizon 5</td>
+                                <td><strong>$59.99 USD</strong></td>
+                                <td>💳 Tarjeta de Crédito</td>
+                                <td>Tienda Online</td>
+                                <td><span class="badge-status badge-completado">● Completado</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-orden" class="btn-icon" title="Ver Detalle" onclick="showOrderDetails('#GZ-10492', '01 Oct 2026, 18:24', 'Roberto Sánchez', 'r.sanchez@gmail.com', 'Forza Horizon 5', '59.99', 'Tarjeta de Crédito (Visa •••• 4821)', 'Tienda Online', 'Completado', 'Licencia activada vía API Steam')">👁️</a>
+                                        <button class="btn-icon danger" title="Reembolsar" onclick="processRefund(this, '#GZ-10492')">↩️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Venta 2 -->
+                            <tr data-status="Completado" data-payment="PayPal" data-branch="Tienda Online">
+                                <td><strong>#GZ-10491</strong></td>
+                                <td>01 Oct 2026, 17:50</td>
+                                <td>Mariana Valenzuela<div style="font-size: 0.72rem; color: var(--text-muted);">m.valenzuela@outlook.com</div></td>
+                                <td>DOOM Eternal</td>
+                                <td><strong>$39.99 USD</strong></td>
+                                <td>🅿️ PayPal</td>
+                                <td>Tienda Online</td>
+                                <td><span class="badge-status badge-completado">● Completado</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-orden" class="btn-icon" title="Ver Detalle" onclick="showOrderDetails('#GZ-10491', '01 Oct 2026, 17:50', 'Mariana Valenzuela', 'm.valenzuela@outlook.com', 'DOOM Eternal', '39.99', 'PayPal (mariana@pay.com)', 'Tienda Online', 'Completado', 'Clave digital canjeada')">👁️</a>
+                                        <button class="btn-icon danger" title="Reembolsar" onclick="processRefund(this, '#GZ-10491')">↩️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Venta 3 -->
+                            <tr data-status="Pendiente" data-payment="Transferencia SPEI" data-branch="Sucursal Centro">
+                                <td><strong>#GZ-10490</strong></td>
+                                <td>01 Oct 2026, 17:15</td>
+                                <td>Alejandro Gómez<div style="font-size: 0.72rem; color: var(--text-muted);">alejandro.g@gmail.com</div></td>
+                                <td>Resident Evil 4 Remake</td>
+                                <td><strong>$59.99 USD</strong></td>
+                                <td>🏦 Transferencia SPEI</td>
+                                <td>Sucursal Centro</td>
+                                <td><span class="badge-status badge-pendiente">⌛ Pendiente</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-orden" class="btn-icon" title="Ver Detalle" onclick="showOrderDetails('#GZ-10490', '01 Oct 2026, 17:15', 'Alejandro Gómez', 'alejandro.g@gmail.com', 'Resident Evil 4 Remake', '59.99', 'Transferencia SPEI (BBVA)', 'Sucursal Centro', 'Pendiente', 'Esperando validación de comprobante bancario')">👁️</a>
+                                        <button class="btn-icon danger" title="Reembolsar" onclick="processRefund(this, '#GZ-10490')">↩️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Venta 4 -->
+                            <tr data-status="Completado" data-payment="Tarjeta de Crédito" data-branch="Matriz Central">
+                                <td><strong>#GZ-10489</strong></td>
+                                <td>01 Oct 2026, 16:40</td>
+                                <td>Sofía Benítez<div style="font-size: 0.72rem; color: var(--text-muted);">sofia.b@live.com</div></td>
+                                <td>The Witcher 3: Wild Hunt</td>
+                                <td><strong>$39.99 USD</strong></td>
+                                <td>💳 Tarjeta de Crédito</td>
+                                <td>Matriz Central</td>
+                                <td><span class="badge-status badge-completado">● Completado</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-orden" class="btn-icon" title="Ver Detalle" onclick="showOrderDetails('#GZ-10489', '01 Oct 2026, 16:40', 'Sofía Benítez', 'sofia.b@live.com', 'The Witcher 3: Wild Hunt', '39.99', 'Mastercard •••• 9012', 'Matriz Central', 'Completado', 'Copia digital entregada')">👁️</a>
+                                        <button class="btn-icon danger" title="Reembolsar" onclick="processRefund(this, '#GZ-10489')">↩️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Venta 5 -->
+                            <tr data-status="Completado" data-payment="Tarjeta de Crédito" data-branch="Tienda Online">
+                                <td><strong>#GZ-10488</strong></td>
+                                <td>01 Oct 2026, 15:10</td>
+                                <td>Diego Portillo<div style="font-size: 0.72rem; color: var(--text-muted);">dportillo@gmail.com</div></td>
+                                <td>F1 24</td>
+                                <td><strong>$59.99 USD</strong></td>
+                                <td>💳 Tarjeta de Crédito</td>
+                                <td>Tienda Online</td>
+                                <td><span class="badge-status badge-completado">● Completado</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-orden" class="btn-icon" title="Ver Detalle" onclick="showOrderDetails('#GZ-10488', '01 Oct 2026, 15:10', 'Diego Portillo', 'dportillo@gmail.com', 'F1 24', '59.99', 'Visa •••• 7731', 'Tienda Online', 'Completado', 'Código Origin/EA emitido')">👁️</a>
+                                        <button class="btn-icon danger" title="Reembolsar" onclick="processRefund(this, '#GZ-10488')">↩️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Venta 6 -->
+                            <tr data-status="Completado" data-payment="PayPal" data-branch="Sucursal Norte">
+                                <td><strong>#GZ-10487</strong></td>
+                                <td>01 Oct 2026, 14:05</td>
+                                <td>Camila Morales<div style="font-size: 0.72rem; color: var(--text-muted);">camila.m@hotmail.com</div></td>
+                                <td>Gran Turismo 7</td>
+                                <td><strong>$69.99 USD</strong></td>
+                                <td>🅿️ PayPal</td>
+                                <td>Sucursal Norte</td>
+                                <td><span class="badge-status badge-completado">● Completado</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-orden" class="btn-icon" title="Ver Detalle" onclick="showOrderDetails('#GZ-10487', '01 Oct 2026, 14:05', 'Camila Morales', 'camila.m@hotmail.com', 'Gran Turismo 7', '69.99', 'PayPal Balance', 'Sucursal Norte', 'Completado', 'Código PSN entregado')">👁️</a>
+                                        <button class="btn-icon danger" title="Reembolsar" onclick="processRefund(this, '#GZ-10487')">↩️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Venta 7 -->
+                            <tr data-status="Reembolsado" data-payment="Tarjeta de Crédito" data-branch="Tienda Online">
+                                <td><strong>#GZ-10486</strong></td>
+                                <td>01 Oct 2026, 12:30</td>
+                                <td>Lucas Espinoza<div style="font-size: 0.72rem; color: var(--text-muted);">lucas.esp@gmail.com</div></td>
+                                <td>Battlefield 2042</td>
+                                <td><strong>$29.99 USD</strong></td>
+                                <td>💳 Tarjeta de Crédito</td>
+                                <td>Tienda Online</td>
+                                <td><span class="badge-status badge-reembolsado">↩️ Reembolsado</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-orden" class="btn-icon" title="Ver Detalle" onclick="showOrderDetails('#GZ-10486', '01 Oct 2026, 12:30', 'Lucas Espinoza', 'lucas.esp@gmail.com', 'Battlefield 2042', '29.99', 'Visa •••• 1029', 'Tienda Online', 'Reembolsado', 'Solicitud por incompatibilidad con hardware del cliente')">👁️</a>
+                                        <button class="btn-icon danger" disabled style="opacity: 0.4; cursor: not-allowed;">↩️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Venta 8 -->
+                            <tr data-status="Completado" data-payment="Cripto / USDT" data-branch="Tienda Online">
+                                <td><strong>#GZ-10485</strong></td>
+                                <td>01 Oct 2026, 11:15</td>
+                                <td>Mateo Herrera<div style="font-size: 0.72rem; color: var(--text-muted);">mateo.h@proton.me</div></td>
+                                <td>Cyberpunk 2077</td>
+                                <td><strong>$59.99 USD</strong></td>
+                                <td>🪙 Cripto / USDT</td>
+                                <td>Tienda Online</td>
+                                <td><span class="badge-status badge-completado">● Completado</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-orden" class="btn-icon" title="Ver Detalle" onclick="showOrderDetails('#GZ-10485', '01 Oct 2026, 11:15', 'Mateo Herrera', 'mateo.h@proton.me', 'Cyberpunk 2077', '59.99', 'Binance Pay USDT TRC20', 'Tienda Online', 'Completado', 'Confirmado con 12 bloques')">👁️</a>
+                                        <button class="btn-icon danger" title="Reembolsar" onclick="processRefund(this, '#GZ-10485')">↩️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Venta 9 -->
+                            <tr data-status="Completado" data-payment="Tarjeta de Crédito" data-branch="Sucursal Centro">
+                                <td><strong>#GZ-10484</strong></td>
+                                <td>01 Oct 2026, 10:05</td>
+                                <td>Lucía Mendoza<div style="font-size: 0.72rem; color: var(--text-muted);">lucia.m@gmail.com</div></td>
+                                <td>God of War (2018)</td>
+                                <td><strong>$49.99 USD</strong></td>
+                                <td>💳 Tarjeta de Crédito</td>
+                                <td>Sucursal Centro</td>
+                                <td><span class="badge-status badge-completado">● Completado</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-orden" class="btn-icon" title="Ver Detalle" onclick="showOrderDetails('#GZ-10484', '01 Oct 2026, 10:05', 'Lucía Mendoza', 'lucia.m@gmail.com', 'God of War (2018)', '49.99', 'Visa •••• 3349', 'Sucursal Centro', 'Completado', 'Copia para Steam enviada por email')">👁️</a>
+                                        <button class="btn-icon danger" title="Reembolsar" onclick="processRefund(this, '#GZ-10484')">↩️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Venta 10 -->
+                            <tr data-status="Pendiente" data-payment="Transferencia SPEI" data-branch="Matriz Central">
+                                <td><strong>#GZ-10483</strong></td>
+                                <td>01 Oct 2026, 09:12</td>
+                                <td>Esteban Navarro<div style="font-size: 0.72rem; color: var(--text-muted);">enavarro@yahoo.com</div></td>
+                                <td>Resident Evil Village</td>
+                                <td><strong>$39.99 USD</strong></td>
+                                <td>🏦 Transferencia SPEI</td>
+                                <td>Matriz Central</td>
+                                <td><span class="badge-status badge-pendiente">⌛ Pendiente</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-orden" class="btn-icon" title="Ver Detalle" onclick="showOrderDetails('#GZ-10483', '01 Oct 2026, 09:12', 'Esteban Navarro', 'enavarro@yahoo.com', 'Resident Evil Village', '39.99', 'Transferencia SPEI (Santander)', 'Matriz Central', 'Pendiente', 'Folio bancario pendiente de conciliar')">👁️</a>
+                                        <button class="btn-icon danger" title="Reembolsar" onclick="processRefund(this, '#GZ-10483')">↩️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         MODAL: DETALLE DE ORDEN DE COMPRA
+         ========================================================================== -->
+    <div id="modal-orden" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title" id="orderModalTitle">
+                    <span>🧾</span> Detalle de la Orden
+                </h3>
+                <a href="#" class="btn-close-modal" aria-label="Cerrar modal">&times;</a>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; background: rgba(255, 255, 255, 0.02); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-subtle);">
+                    <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">ID de Transacción</div>
+                        <div id="detailOrderId" style="font-weight: 700; color: var(--cyan); font-size: 1.1rem;">#GZ-00000</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Fecha y Hora</div>
+                        <div id="detailOrderDate" style="font-size: 0.9rem;">--</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Estado de la Orden</div>
+                        <div id="detailOrderStatus" style="margin-top: 4px;">--</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Sucursal de Venta</div>
+                        <div id="detailOrderBranch" style="font-size: 0.9rem; font-weight: 600;">--</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">Datos del Cliente</h4>
+                    <div style="background: var(--bg-input); padding: 0.85rem; border-radius: 8px; border: 1px solid var(--border-subtle);">
+                        <div id="detailClientName" style="font-weight: 700;">--</div>
+                        <div id="detailClientEmail" style="font-size: 0.82rem; color: var(--text-muted);">--</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">Detalle del Videojuego</h4>
+                    <div style="background: var(--bg-input); padding: 0.85rem; border-radius: 8px; border: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div id="detailGameTitle" style="font-weight: 700;">--</div>
+                            <div style="font-size: 0.78rem; color: var(--text-muted);">Licencia Digital Oficial GameZone</div>
+                        </div>
+                        <div id="detailGamePrice" style="font-size: 1.2rem; font-weight: 800; color: var(--text-main);">$0.00 USD</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">Método de Pago & Notas</h4>
+                    <div style="background: var(--bg-input); padding: 0.85rem; border-radius: 8px; border: 1px solid var(--border-subtle);">
+                        <div id="detailPaymentMethod" style="font-weight: 600; color: var(--cyan);">--</div>
+                        <div id="detailOrderNotes" style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">--</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a href="#" class="btn-secondary">Cerrar</a>
+                <button class="btn-primary" onclick="window.print()">
+                    <span>🖨️ Imprimir Ticket</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts de interactividad y filtrado de ventas -->
+    <script>
+        function showOrderDetails(id, date, client, email, game, price, payment, branch, status, notes) {
+            document.getElementById('orderModalTitle').innerHTML = '<span>🧾</span> Detalle: ' + id;
+            document.getElementById('detailOrderId').innerText = id;
+            document.getElementById('detailOrderDate').innerText = date;
+            document.getElementById('detailClientName').innerText = client;
+            document.getElementById('detailClientEmail').innerText = email;
+            document.getElementById('detailGameTitle').innerText = game;
+            document.getElementById('detailGamePrice').innerText = '$' + price + ' USD';
+            document.getElementById('detailPaymentMethod').innerText = payment;
+            document.getElementById('detailOrderBranch').innerText = branch;
+            document.getElementById('detailOrderNotes').innerText = notes;
+
+            let badgeClass = 'badge-completado';
+            if (status === 'Pendiente') badgeClass = 'badge-pendiente';
+            if (status === 'Reembolsado') badgeClass = 'badge-reembolsado';
+
+            document.getElementById('detailOrderStatus').innerHTML = '<span class="badge-status ' + badgeClass + '">● ' + status + '</span>';
+        }
+
+        function processRefund(btn, orderId) {
+            if (confirm('¿Confirmar el reembolso total para la orden ' + orderId + '?')) {
+                const tr = btn.closest('tr');
+                const statusBadge = tr.querySelector('.badge-status');
+                statusBadge.className = 'badge-status badge-reembolsado';
+                statusBadge.innerHTML = '↩️ Reembolsado';
+                tr.setAttribute('data-status', 'Reembolsado');
+                btn.disabled = true;
+                btn.style.opacity = '0.4';
+                btn.style.cursor = 'not-allowed';
+                alert('El reembolso de ' + orderId + ' ha sido procesado exitosamente.');
+            }
+        }
+
+        function exportCSV() {
+            let csv = "ID Orden,Fecha,Cliente,Email,Juego,Precio,Metodo Pago,Sucursal,Estado\n";
+            const rows = document.querySelectorAll('#salesTable tbody tr');
+            rows.forEach(r => {
+                const cells = r.querySelectorAll('td');
+                const id = cells[0].innerText.trim();
+                const fecha = cells[1].innerText.trim();
+                const cliente = cells[2].innerText.replace(/\n/g, ' ').trim();
+                const juego = cells[3].innerText.trim();
+                const precio = cells[4].innerText.trim();
+                const pago = cells[5].innerText.trim();
+                const sucursal = cells[6].innerText.trim();
+                const estado = cells[7].innerText.trim();
+                csv += `"${id}","${fecha}","${cliente}","${juego}","${precio}","${pago}","${sucursal}","${estado}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "reporte_ventas_gamezone.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Filtros de ventas
+        const salesSearchInput = document.getElementById('salesSearchInput');
+        const salesStatusFilter = document.getElementById('salesStatusFilter');
+        const paymentFilter = document.getElementById('paymentFilter');
+        const branchFilter = document.getElementById('branchFilter');
+
+        function filterSales() {
+            const query = salesSearchInput.value.toLowerCase();
+            const status = salesStatusFilter.value;
+            const payment = paymentFilter.value;
+            const branch = branchFilter.value;
+            const rows = document.querySelectorAll('#salesTable tbody tr');
+            let count = 0;
+
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                const rowStatus = row.getAttribute('data-status');
+                const rowPayment = row.getAttribute('data-payment');
+                const rowBranch = row.getAttribute('data-branch');
+
+                const matchesQuery = text.includes(query);
+                const matchesStatus = (status === 'all' || rowStatus === status);
+                const matchesPayment = (payment === 'all' || rowPayment === payment);
+                const matchesBranch = (branch === 'all' || rowBranch === branch);
+
+                if (matchesQuery && matchesStatus && matchesPayment && matchesBranch) {
+                    row.style.display = '';
+                    count++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            document.getElementById('salesCountText').innerText = 'Mostrando ' + count + ' transacciones';
+        }
+
+        salesSearchInput.addEventListener('input', filterSales);
+        salesStatusFilter.addEventListener('change', filterSales);
+        paymentFilter.addEventListener('change', filterSales);
+        branchFilter.addEventListener('change', filterSales);
+    </script>
+</body>
+</html>

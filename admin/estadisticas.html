@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameZone Admin | Reportes y Estadísticas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+    <!-- Chart.js oficial para gráficas estadísticas -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- ==========================================================================
+         SIDEBAR FIJO (220px)
+         ========================================================================== -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="brand-logo">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">GAME<span>ZONE</span></span>
+                    <span class="brand-tagline">Admin Panel</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Usuario Activo -->
+        <div class="user-profile-widget">
+            <div class="user-avatar">👨‍💻</div>
+            <div class="user-info">
+                <div class="user-name">Carlos Méndez</div>
+                <span class="user-role-badge">Super Admin</span>
+            </div>
+        </div>
+
+        <!-- Enlaces de Navegación -->
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-link">
+                <span class="nav-icon">🏠</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="usuarios.html" class="nav-link">
+                <span class="nav-icon">👥</span>
+                <span>Usuarios</span>
+            </a>
+            <a href="inventario.html" class="nav-link">
+                <span class="nav-icon">📦</span>
+                <span>Inventario</span>
+            </a>
+            <a href="ventas.html" class="nav-link">
+                <span class="nav-icon">💳</span>
+                <span>Ventas</span>
+            </a>
+            <a href="estadisticas.html" class="nav-link active">
+                <span class="nav-icon">📊</span>
+                <span>Estadísticas</span>
+            </a>
+        </nav>
+
+        <!-- Pie Sidebar -->
+        <div class="sidebar-footer">
+            <a href="../index.html" class="btn-public-store" target="_blank">
+                <span>🌐</span> Ver Tienda Pública
+            </a>
+            <a href="login.html" class="btn-logout">
+                <span>🚪</span> Cerrar Sesión
+            </a>
+        </div>
+    </aside>
+
+    <!-- ==========================================================================
+         ÁREA DE CONTENIDO (Scroll Independiente)
+         ========================================================================== -->
+    <main class="admin-main">
+        <!-- Header Superior -->
+        <header class="admin-header">
+            <div class="page-title-group">
+                <h1>📊 Inteligencia y Reportes Estadísticos</h1>
+                <p>Análisis de rendimiento comercial, distribución por plataforma y catálogo líder</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn-primary" onclick="exportPDFReport()">
+                    <span>📥 Exportar Reporte PDF</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Contenedor Principal -->
+        <div class="admin-content">
+
+            <!-- 1. SELECTORES DE PERIODO Y FILTROS -->
+            <section class="filter-bar">
+                <div class="filter-group-left">
+                    <div style="display: flex; background: var(--bg-input); padding: 3px; border-radius: 8px; border: 1px solid var(--border-subtle);">
+                        <button type="button" class="btn-period" onclick="changePeriod(this, 'Diario')">Diario</button>
+                        <button type="button" class="btn-period" onclick="changePeriod(this, 'Semanal')">Semanal</button>
+                        <button type="button" class="btn-period active" onclick="changePeriod(this, 'Mensual')">Mensual</button>
+                        <button type="button" class="btn-period" onclick="changePeriod(this, 'Anual')">Anual</button>
+                    </div>
+
+                    <select id="statsBranchFilter" class="select-filter" onchange="updateChartsData()">
+                        <option value="all">Todas las Sucursales</option>
+                        <option value="online">Tienda Online Oficial</option>
+                        <option value="matriz">Matriz Central</option>
+                        <option value="norte">Sucursal Norte</option>
+                        <option value="centro">Sucursal Centro</option>
+                    </select>
+
+                    <select id="statsCategoryFilter" class="select-filter" onchange="updateChartsData()">
+                        <option value="all">Todas las Categorías</option>
+                        <option value="Carreras">Carreras</option>
+                        <option value="Shooters">Shooters</option>
+                        <option value="Aventura">Aventura</option>
+                        <option value="Terror">Terror</option>
+                    </select>
+                </div>
+
+                <div class="filter-group-right">
+                    <span style="font-size: 0.8rem; color: var(--text-dark);">Actualizado hace 2 min • Datos en vivo</span>
+                </div>
+            </section>
+
+            <!-- 2. KPI CARDS ESTADÍSTICOS (4 CARDS) -->
+            <section class="kpi-grid">
+                <!-- Card 1 -->
+                <article class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-title">Ingresos Totales</span>
+                        <div class="kpi-icon">💰</div>
+                    </div>
+                    <div class="kpi-value" id="kpiRevenue">$128,450.00</div>
+                    <div class="kpi-bottom">
+                        <span class="badge-trend-up">▲ +14.2%</span>
+                        <span>vs periodo previo</span>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-title">Transacciones</span>
+                        <div class="kpi-icon">🛒</div>
+                    </div>
+                    <div class="kpi-value" id="kpiOrders">2,847</div>
+                    <div class="kpi-bottom">
+                        <span class="badge-trend-up">▲ 98.4% de efectividad</span>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-title">Ticket Promedio</span>
+                        <div class="kpi-icon">🎯</div>
+                    </div>
+                    <div class="kpi-value" id="kpiAvgTicket">$45.11 USD</div>
+                    <div class="kpi-bottom">
+                        <span class="badge-trend-neutral">● +$2.40 USD</span>
+                        <span>por carrito</span>
+                    </div>
+                </article>
+
+                <!-- Card 4 -->
+                <article class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-title">Juego Más Vendido</span>
+                        <div class="kpi-icon">🏆</div>
+                    </div>
+                    <div class="kpi-value" style="font-size: 1.35rem;" id="kpiTopGame">Forza Horizon 5</div>
+                    <div class="kpi-bottom">
+                        <span style="color: var(--cyan); font-weight: 700;">412 copias</span>
+                        <span>($24,715 USD)</span>
+                    </div>
+                </article>
+            </section>
+
+            <!-- 3. GRÁFICA DE LÍNEA GRANDE: TENDENCIA DE VENTAS -->
+            <section class="card-panel">
+                <div class="card-panel-header">
+                    <div>
+                        <h2 class="card-panel-title">
+                            <span>📈</span> Tendencia de Ventas en el Periodo Seleccionado
+                        </h2>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">Ingresos generados y volumen transaccional</p>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <span class="badge-trend-up">Ventas Históricas ($)</span>
+                    </div>
+                </div>
+                <div class="chart-container" style="min-height: 340px;">
+                    <canvas id="bigTrendChart"></canvas>
+                </div>
+            </section>
+
+            <!-- 4. DOS GRÁFICAS: BARRAS POR CATEGORÍA + DONA POR PLATAFORMA -->
+            <section class="charts-grid-2">
+                <!-- Gráfica de Barras: Ventas por Categoría -->
+                <div class="card-panel">
+                    <div class="card-panel-header">
+                        <h2 class="card-panel-title">
+                            <span>📊</span> Ventas por Categoría
+                        </h2>
+                        <span class="badge-trend-neutral">Carreras • Shooters • Aventura • Terror</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="categoryDetailChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Gráfica de Dona: Distribución por Plataforma -->
+                <div class="card-panel">
+                    <div class="card-panel-header">
+                        <h2 class="card-panel-title">
+                            <span>🍩</span> Distribución por Plataforma
+                        </h2>
+                        <span class="badge-trend-neutral">Steam • PS • Xbox • Epic • Nintendo</span>
+                    </div>
+                    <div class="chart-container" style="display: flex; align-items: center; justify-content: center;">
+                        <canvas id="platformDoughnutChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. TABLA: TOP 10 JUEGOS MÁS VENDIDOS -->
+            <section class="card-panel">
+                <div class="card-panel-header">
+                    <h2 class="card-panel-title">
+                        <span>🏆</span> Top 10 Juegos Más Vendidos del Periodo
+                    </h2>
+                    <span style="font-size: 0.82rem; color: var(--text-muted);">Basado en unidades facturadas</span>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 60px;">Ranking</th>
+                                <th>Nombre del Videojuego</th>
+                                <th>Categoría</th>
+                                <th>Unidades Vendidas</th>
+                                <th>Precio Unitario</th>
+                                <th>Ingresos Generados</th>
+                                <th>Rendimiento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span style="font-size: 1.1rem; font-weight: 800; color: #fbbf24;">🥇 1°</span></td>
+                                <td>
+                                    <div class="game-cell">
+                                        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1551360/header.jpg" alt="Forza Horizon 5" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                        <div>
+                                            <strong>Forza Horizon 5</strong>
+                                            <div class="game-title-sub">Turn 10 Studios</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-role badge-role-admin">Carreras</span></td>
+                                <td><strong>412 unidades</strong></td>
+                                <td>$59.99 USD</td>
+                                <td style="color: var(--cyan); font-weight: 800;">$24,715.88 USD</td>
+                                <td><div style="background: rgba(255,255,255,0.06); border-radius: 4px; height: 8px; width: 100px; overflow: hidden;"><div style="background: var(--cyan); width: 100%; height: 100%;"></div></div></td>
+                            </tr>
+
+                            <tr>
+                                <td><span style="font-size: 1.1rem; font-weight: 800; color: #94a3b8;">🥈 2°</span></td>
+                                <td>
+                                    <div class="game-cell">
+                                        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/782330/header.jpg" alt="DOOM Eternal" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                        <div>
+                                            <strong>DOOM Eternal</strong>
+                                            <div class="game-title-sub">id Software</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-role badge-role-super">Shooters</span></td>
+                                <td><strong>385 unidades</strong></td>
+                                <td>$39.99 USD</td>
+                                <td style="color: var(--purple); font-weight: 800;">$15,396.15 USD</td>
+                                <td><div style="background: rgba(255,255,255,0.06); border-radius: 4px; height: 8px; width: 100px; overflow: hidden;"><div style="background: var(--purple); width: 88%; height: 100%;"></div></div></td>
+                            </tr>
+
+                            <tr>
+                                <td><span style="font-size: 1.1rem; font-weight: 800; color: #d97706;">🥉 3°</span></td>
+                                <td>
+                                    <div class="game-cell">
+                                        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/2050650/header.jpg" alt="Resident Evil 4 Remake" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                        <div>
+                                            <strong>Resident Evil 4 Remake</strong>
+                                            <div class="game-title-sub">Capcom</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-role badge-role-soporte" style="color: #f87171; border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.1);">Terror</span></td>
+                                <td><strong>310 unidades</strong></td>
+                                <td>$59.99 USD</td>
+                                <td style="color: #ef4444; font-weight: 800;">$18,596.90 USD</td>
+                                <td><div style="background: rgba(255,255,255,0.06); border-radius: 4px; height: 8px; width: 100px; overflow: hidden;"><div style="background: #ef4444; width: 75%; height: 100%;"></div></div></td>
+                            </tr>
+
+                            <tr>
+                                <td><span style="font-weight: 700; color: var(--text-muted);">4°</span></td>
+                                <td>
+                                    <div class="game-cell">
+                                        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg" alt="The Witcher 3: Wild Hunt" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                        <div>
+                                            <strong>The Witcher 3: Wild Hunt</strong>
+                                            <div class="game-title-sub">CD Projekt Red</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-role badge-role-vendedor">Aventura</span></td>
+                                <td><strong>294 unidades</strong></td>
+                                <td>$39.99 USD</td>
+                                <td style="color: var(--emerald); font-weight: 800;">$11,757.06 USD</td>
+                                <td><div style="background: rgba(255,255,255,0.06); border-radius: 4px; height: 8px; width: 100px; overflow: hidden;"><div style="background: var(--emerald); width: 70%; height: 100%;"></div></div></td>
+                            </tr>
+
+                            <tr>
+                                <td><span style="font-weight: 700; color: var(--text-muted);">5°</span></td>
+                                <td>
+                                    <div class="game-cell">
+                                        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/2488620/header.jpg" alt="F1 24" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                        <div>
+                                            <strong>F1 24</strong>
+                                            <div class="game-title-sub">Codemasters / EA</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-role badge-role-admin">Carreras</span></td>
+                                <td><strong>265 unidades</strong></td>
+                                <td>$59.99 USD</td>
+                                <td style="color: var(--cyan); font-weight: 800;">$15,897.35 USD</td>
+                                <td><div style="background: rgba(255,255,255,0.06); border-radius: 4px; height: 8px; width: 100px; overflow: hidden;"><div style="background: var(--cyan); width: 62%; height: 100%;"></div></div></td>
+                            </tr>
+
+                            <tr>
+                                <td><span style="font-weight: 700; color: var(--text-muted);">6°</span></td>
+                                <td>
+                                    <div class="game-cell">
+                                        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/header.jpg" alt="Cyberpunk 2077" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                        <div>
+                                            <strong>Cyberpunk 2077</strong>
+                                            <div class="game-title-sub">CD Projekt Red</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-role badge-role-vendedor">Aventura</span></td>
+                                <td><strong>240 unidades</strong></td>
+                                <td>$59.99 USD</td>
+                                <td style="color: var(--emerald); font-weight: 800;">$14,397.60 USD</td>
+                                <td><div style="background: rgba(255,255,255,0.06); border-radius: 4px; height: 8px; width: 100px; overflow: hidden;"><div style="background: var(--emerald); width: 56%; height: 100%;"></div></div></td>
+                            </tr>
+
+                            <tr>
+                                <td><span style="font-weight: 700; color: var(--text-muted);">7°</span></td>
+                                <td>
+                                    <div class="game-cell">
+                                        <img src="https://gmedia.playstation.com/is/image/SIEPDC/gran-turismo-hub-keyart-01-en-08feb22?$1600px$" alt="Gran Turismo 7" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                        <div>
+                                            <strong>Gran Turismo 7</strong>
+                                            <div class="game-title-sub">Polyphony Digital</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-role badge-role-admin">Carreras</span></td>
+                                <td><strong>215 unidades</strong></td>
+                                <td>$69.99 USD</td>
+                                <td style="color: var(--cyan); font-weight: 800;">$15,047.85 USD</td>
+                                <td><div style="background: rgba(255,255,255,0.06); border-radius: 4px; height: 8px; width: 100px; overflow: hidden;"><div style="background: var(--cyan); width: 51%; height: 100%;"></div></div></td>
+                            </tr>
+
+                            <tr>
+                                <td><span style="font-weight: 700; color: var(--text-muted);">8°</span></td>
+                                <td>
+                                    <div class="game-cell">
+                                        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/header.jpg" alt="God of War (2018)" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                        <div>
+                                            <strong>God of War (2018)</strong>
+                                            <div class="game-title-sub">Santa Monica Studio</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-role badge-role-vendedor">Aventura</span></td>
+                                <td><strong>198 unidades</strong></td>
+                                <td>$49.99 USD</td>
+                                <td style="color: var(--emerald); font-weight: 800;">$9,898.02 USD</td>
+                                <td><div style="background: rgba(255,255,255,0.06); border-radius: 4px; height: 8px; width: 100px; overflow: hidden;"><div style="background: var(--emerald); width: 46%; height: 100%;"></div></div></td>
+                            </tr>
+
+                            <tr>
+                                <td><span style="font-weight: 700; color: var(--text-muted);">9°</span></td>
+                                <td>
+                                    <div class="game-cell">
+                                        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1196590/header.jpg" alt="Resident Evil Village" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                        <div>
+                                            <strong>Resident Evil Village</strong>
+                                            <div class="game-title-sub">Capcom</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-role badge-role-soporte" style="color: #f87171; border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.1);">Terror</span></td>
+                                <td><strong>182 unidades</strong></td>
+                                <td>$39.99 USD</td>
+                                <td style="color: #ef4444; font-weight: 800;">$7,278.18 USD</td>
+                                <td><div style="background: rgba(255,255,255,0.06); border-radius: 4px; height: 8px; width: 100px; overflow: hidden;"><div style="background: #ef4444; width: 42%; height: 100%;"></div></div></td>
+                            </tr>
+
+                            <tr>
+                                <td><span style="font-weight: 700; color: var(--text-muted);">10°</span></td>
+                                <td>
+                                    <div class="game-cell">
+                                        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1846380/header.jpg" alt="Need for Speed Unbound" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                        <div>
+                                            <strong>Need for Speed Unbound</strong>
+                                            <div class="game-title-sub">Criterion Games</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-role badge-role-admin">Carreras</span></td>
+                                <td><strong>145 unidades</strong></td>
+                                <td>$49.99 USD</td>
+                                <td style="color: var(--cyan); font-weight: 800;">$7,248.55 USD</td>
+                                <td><div style="background: rgba(255,255,255,0.06); border-radius: 4px; height: 8px; width: 100px; overflow: hidden;"><div style="background: var(--cyan); width: 34%; height: 100%;"></div></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <style>
+        .btn-period {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.4rem 0.85rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-period:hover {
+            color: var(--text-main);
+        }
+        .btn-period.active {
+            background-color: var(--cyan);
+            color: #090b11;
+            font-weight: 700;
+            box-shadow: 0 0 10px rgba(0, 168, 181, 0.4);
+        }
+    </style>
+
+    <!-- Inicialización de Gráficas de Reportes con Chart.js -->
+    <script>
+        // Configuración Global de Chart.js
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.borderColor = '#1e2638';
+        Chart.defaults.font.family = "'Inter', 'Segoe UI', system-ui, sans-serif";
+
+        // 1. Gráfica de Línea Grande: Tendencia en el periodo
+        const ctxBig = document.getElementById('bigTrendChart').getContext('2d');
+        const gradBig = ctxBig.createLinearGradient(0, 0, 0, 320);
+        gradBig.addColorStop(0, 'rgba(0, 168, 181, 0.35)');
+        gradBig.addColorStop(1, 'rgba(0, 168, 181, 0.0)');
+
+        const bigTrendChart = new Chart(ctxBig, {
+            type: 'line',
+            data: {
+                labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+                datasets: [{
+                    label: 'Ingresos Facturados ($)',
+                    data: [28500, 31200, 34900, 33850],
+                    borderColor: '#00a8b5',
+                    backgroundColor: gradBig,
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.35,
+                    pointBackgroundColor: '#00a8b5',
+                    pointBorderColor: '#ffffff',
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#121721',
+                        titleColor: '#ffffff',
+                        bodyColor: '#00a8b5',
+                        borderColor: '#1e2638',
+                        borderWidth: 1,
+                        padding: 12,
+                        callbacks: {
+                            label: function(c) { return ' $' + c.parsed.y.toLocaleString() + ' USD'; }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        grid: { color: '#1e2638' },
+                        ticks: {
+                            callback: function(v) { return '$' + (v / 1000) + 'k'; }
+                        }
+                    },
+                    x: {
+                        grid: { color: 'rgba(30, 38, 56, 0.4)' }
+                    }
+                }
+            }
+        });
+
+        // 2. Gráfica de Barras: Ventas por Categoría
+        const ctxCat = document.getElementById('categoryDetailChart').getContext('2d');
+        const categoryChart = new Chart(ctxCat, {
+            type: 'bar',
+            data: {
+                labels: ['Carreras', 'Shooters', 'Aventura', 'Terror'],
+                datasets: [{
+                    label: 'Ventas ($ USD)',
+                    data: [34200, 41800, 31500, 20950],
+                    backgroundColor: [
+                        'rgba(0, 168, 181, 0.8)',
+                        'rgba(168, 85, 247, 0.8)',
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(239, 68, 68, 0.8)'
+                    ],
+                    borderColor: ['#00a8b5', '#a855f7', '#10b981', '#ef4444'],
+                    borderWidth: 2,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#1e2638' },
+                        ticks: {
+                            callback: function(v) { return '$' + (v / 1000) + 'k'; }
+                        }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 3. Gráfica de Dona: Distribución por Plataforma
+        const ctxPlat = document.getElementById('platformDoughnutChart').getContext('2d');
+        const doughnutChart = new Chart(ctxPlat, {
+            type: 'doughnut',
+            data: {
+                labels: ['Steam / PC', 'PlayStation', 'Xbox', 'Epic Games', 'Nintendo Switch'],
+                datasets: [{
+                    data: [46, 24, 18, 8, 4],
+                    backgroundColor: [
+                        '#00a8b5', // Cian GameZone (Steam principal)
+                        '#3b82f6', // Azul PlayStation
+                        '#10b981', // Verde Xbox
+                        '#a855f7', // Púrpura Epic
+                        '#ef4444'  // Rojo Nintendo
+                    ],
+                    borderColor: '#121721',
+                    borderWidth: 4,
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            color: '#94a3b8',
+                            boxWidth: 14,
+                            padding: 12,
+                            font: { size: 12 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(c) {
+                                return ' ' + c.label + ': ' + c.parsed + '% de cuota';
+                            }
+                        }
+                    }
+                },
+                cutout: '68%'
+            }
+        });
+
+        // Función para cambiar de periodo (Diario, Semanal, Mensual, Anual)
+        function changePeriod(btn, period) {
+            document.querySelectorAll('.btn-period').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            if (period === 'Diario') {
+                bigTrendChart.data.labels = ['08:00', '11:00', '14:00', '17:00', '20:00', '23:00'];
+                bigTrendChart.data.datasets[0].data = [420, 850, 1140, 950, 1420, 680];
+                document.getElementById('kpiRevenue').innerText = '$5,460.00';
+                document.getElementById('kpiOrders').innerText = '94';
+            } else if (period === 'Semanal') {
+                bigTrendChart.data.labels = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+                bigTrendChart.data.datasets[0].data = [4200, 4800, 5100, 5600, 7200, 8400, 6900];
+                document.getElementById('kpiRevenue').innerText = '$42,200.00';
+                document.getElementById('kpiOrders').innerText = '820';
+            } else if (period === 'Mensual') {
+                bigTrendChart.data.labels = ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'];
+                bigTrendChart.data.datasets[0].data = [28500, 31200, 34900, 33850];
+                document.getElementById('kpiRevenue').innerText = '$128,450.00';
+                document.getElementById('kpiOrders').innerText = '2,847';
+            } else if (period === 'Anual') {
+                bigTrendChart.data.labels = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct'];
+                bigTrendChart.data.datasets[0].data = [95000, 102000, 110000, 118000, 125000, 122000, 134000, 129000, 131000, 128450];
+                document.getElementById('kpiRevenue').innerText = '$1,194,450.00';
+                document.getElementById('kpiOrders').innerText = '24,510';
+            }
+            bigTrendChart.update();
+        }
+
+        function updateChartsData() {
+            // Animación suave de recálculo al cambiar filtros
+            bigTrendChart.update();
+            categoryChart.update();
+            doughnutChart.update();
+        }
+
+        function exportPDFReport() {
+            alert('Generando reporte PDF consolidado con métricas y gráficas de GameZone... Se abrirá el cuadro de diálogo de impresión para Guardar como PDF.');
+            window.print();
+        }
+    </script>
+</body>
+</html>

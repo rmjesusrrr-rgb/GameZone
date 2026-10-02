@@ -39,6 +39,10 @@
     --neon-emerald-glow: rgba(0, 245, 160, 0.4);
     --neon-emerald-bg: rgba(0, 245, 160, 0.12);
 
+    --neon-red: #ff4040;
+    --neon-red-glow: rgba(255, 64, 64, 0.4);
+    --neon-red-bg: rgba(255, 64, 64, 0.12);
+
     /* Transiciones y Sombras */
     --radius-sm: 8px;
     --radius-md: 12px;
@@ -239,6 +243,13 @@ header {
     color: var(--neon-emerald);
     border-color: rgba(0, 245, 160, 0.5);
     box-shadow: 0 0 15px var(--neon-emerald-glow);
+}
+
+.filter-pill.active[data-filter="terror"] {
+    background: linear-gradient(135deg, rgba(255, 64, 64, 0.2), rgba(255, 64, 64, 0.1));
+    color: var(--neon-red);
+    border-color: rgba(255, 64, 64, 0.5);
+    box-shadow: 0 0 15px var(--neon-red-glow);
 }
 
 .nav-contact-btn {
@@ -464,6 +475,11 @@ header {
     box-shadow: 0 0 16px var(--neon-emerald-glow);
 }
 
+.category-section[data-category="terror"] .category-bar {
+    background: linear-gradient(to bottom, var(--neon-red), #b91c1c);
+    box-shadow: 0 0 16px var(--neon-red-glow);
+}
+
 .category-titles {
     display: flex;
     flex-direction: column;
@@ -518,6 +534,12 @@ header {
     box-shadow: 0 0 12px rgba(0, 245, 160, 0.15);
 }
 
+.category-section[data-category="terror"] .category-counter {
+    color: var(--neon-red);
+    border-color: rgba(255, 64, 64, 0.35);
+    box-shadow: 0 0 12px rgba(255, 64, 64, 0.15);
+}
+
 /* ==========================================================================
    6. GRID RESPONSIVO Y TARJETAS DE VIDEOJUEGOS
    ========================================================================== */
@@ -560,6 +582,11 @@ header {
 .category-section[data-category="aventura"] .game-card:hover {
     border-color: var(--neon-emerald);
     box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 245, 160, 0.22);
+}
+
+.category-section[data-category="terror"] .game-card:hover {
+    border-color: var(--neon-red);
+    box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 64, 64, 0.25);
 }
 
 /* Contenedor de la Portada con Badge de Año */
@@ -692,6 +719,12 @@ header {
     border-color: rgba(0, 245, 160, 0.25);
 }
 
+.category-section[data-category="terror"] .genre-tag {
+    background: var(--neon-red-bg);
+    color: var(--neon-red);
+    border-color: rgba(255, 64, 64, 0.25);
+}
+
 /* Barra de Puntuación Metascore / Rating */
 .rating-box {
     background: rgba(9, 11, 17, 0.6);
@@ -752,6 +785,11 @@ header {
 .category-section[data-category="aventura"] .rating-bar-fill {
     background: linear-gradient(90deg, #00b074, var(--neon-emerald));
     box-shadow: 0 0 8px var(--neon-emerald-glow);
+}
+
+.category-section[data-category="terror"] .rating-bar-fill {
+    background: linear-gradient(90deg, #b91c1c, var(--neon-red));
+    box-shadow: 0 0 8px var(--neon-red-glow);
 }
 
 /* Footer de la Tarjeta: Precio y Botón Comprar */
@@ -853,6 +891,16 @@ header {
 .category-section[data-category="aventura"] .btn-buy:hover {
     background: #47ffbe;
     box-shadow: 0 0 22px rgba(0, 245, 160, 0.65);
+}
+
+.category-section[data-category="terror"] .btn-buy {
+    background: var(--neon-red);
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 64, 64, 0.35);
+}
+.category-section[data-category="terror"] .btn-buy:hover {
+    background: #ff6666;
+    box-shadow: 0 0 22px rgba(255, 64, 64, 0.65);
 }
 
 /* ==========================================================================

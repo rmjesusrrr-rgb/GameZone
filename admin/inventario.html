@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameZone Admin | Control de Inventario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <!-- ==========================================================================
+         SIDEBAR FIJO (220px)
+         ========================================================================== -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="brand-logo">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">GAME<span>ZONE</span></span>
+                    <span class="brand-tagline">Admin Panel</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Usuario Activo -->
+        <div class="user-profile-widget">
+            <div class="user-avatar">👨‍💻</div>
+            <div class="user-info">
+                <div class="user-name">Carlos Méndez</div>
+                <span class="user-role-badge">Super Admin</span>
+            </div>
+        </div>
+
+        <!-- Enlaces de Navegación -->
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="nav-link">
+                <span class="nav-icon">🏠</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="usuarios.html" class="nav-link">
+                <span class="nav-icon">👥</span>
+                <span>Usuarios</span>
+            </a>
+            <a href="inventario.html" class="nav-link active">
+                <span class="nav-icon">📦</span>
+                <span>Inventario</span>
+            </a>
+            <a href="ventas.html" class="nav-link">
+                <span class="nav-icon">💳</span>
+                <span>Ventas</span>
+            </a>
+            <a href="estadisticas.html" class="nav-link">
+                <span class="nav-icon">📊</span>
+                <span>Estadísticas</span>
+            </a>
+        </nav>
+
+        <!-- Pie Sidebar -->
+        <div class="sidebar-footer">
+            <a href="../index.html" class="btn-public-store" target="_blank">
+                <span>🌐</span> Ver Tienda Pública
+            </a>
+            <a href="login.html" class="btn-logout">
+                <span>🚪</span> Cerrar Sesión
+            </a>
+        </div>
+    </aside>
+
+    <!-- ==========================================================================
+         ÁREA DE CONTENIDO (Scroll Independiente)
+         ========================================================================== -->
+    <main class="admin-main">
+        <!-- Header Superior -->
+        <header class="admin-header">
+            <div class="page-title-group">
+                <h1>📦 Catálogo y Control de Inventario</h1>
+                <p>Gestión de títulos oficiales, existencias, precios de venta y plataformas</p>
+            </div>
+            <div class="header-actions">
+                <a href="#modal-juego" class="btn-primary" onclick="openCreateGameModal()">
+                    <span>+ Agregar Juego</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Contenedor Principal -->
+        <div class="admin-content">
+
+            <!-- 1. RESUMEN EN 3 CARDS -->
+            <section class="kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                <!-- Card 1 -->
+                <article class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-title">Total de Juegos</span>
+                        <div class="kpi-icon">🎮</div>
+                    </div>
+                    <div class="kpi-value">120</div>
+                    <div class="kpi-bottom">
+                        <span class="badge-trend-neutral">● Catálogo Oficial</span>
+                        <span>4 categorías activas</span>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-title">Disponibles</span>
+                        <div class="kpi-icon">🟢</div>
+                    </div>
+                    <div class="kpi-value">95</div>
+                    <div class="kpi-bottom">
+                        <span class="badge-trend-up">▲ 79% del inventario</span>
+                        <span>con stock óptimo</span>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="kpi-card">
+                    <div class="kpi-top">
+                        <span class="kpi-title">Stock Bajo / Agotados</span>
+                        <div class="kpi-icon">⚠️</div>
+                    </div>
+                    <div class="kpi-value">25</div>
+                    <div class="kpi-bottom">
+                        <span style="color: var(--amber); font-weight: 700;">18 bajos</span>
+                        <span>•</span>
+                        <span style="color: var(--rose); font-weight: 700;">7 agotados</span>
+                    </div>
+                </article>
+            </section>
+
+            <!-- 2. BARRA DE FILTROS Y BÚSQUEDA -->
+            <section class="filter-bar">
+                <div class="filter-group-left">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="gameSearchInput" class="search-input" placeholder="Buscar juego, desarrolladora...">
+                    </div>
+
+                    <select id="categoryFilter" class="select-filter">
+                        <option value="all">Todas las Categorías</option>
+                        <option value="Carreras">Carreras</option>
+                        <option value="Shooters">Shooters</option>
+                        <option value="Aventura">Aventura</option>
+                        <option value="Terror">Terror</option>
+                    </select>
+
+                    <select id="platformFilter" class="select-filter">
+                        <option value="all">Todas las Plataformas</option>
+                        <option value="Steam">Steam</option>
+                        <option value="PlayStation">PlayStation</option>
+                        <option value="Xbox">Xbox</option>
+                        <option value="EA">EA</option>
+                        <option value="GOG">GOG</option>
+                    </select>
+
+                    <select id="stockFilter" class="select-filter">
+                        <option value="all">Todos los Estados</option>
+                        <option value="Disponible">Disponible</option>
+                        <option value="Stock Bajo">Stock Bajo</option>
+                        <option value="Agotado">Agotado</option>
+                    </select>
+                </div>
+
+                <div class="filter-group-right">
+                    <span style="font-size: 0.84rem; color: var(--text-muted);" id="inventoryCountText">Mostrando 10 juegos</span>
+                </div>
+            </section>
+
+            <!-- 3. TABLA DE INVENTARIO (10 TÍTULOS DE GAMEZONE) -->
+            <section class="card-panel">
+                <div class="table-responsive">
+                    <table class="admin-table" id="inventoryTable">
+                        <thead>
+                            <tr>
+                                <th>Portada</th>
+                                <th>Nombre del Juego</th>
+                                <th>Desarrolladora</th>
+                                <th>Categoría</th>
+                                <th>Plataforma</th>
+                                <th>Precio Venta</th>
+                                <th>Stock</th>
+                                <th>Estado</th>
+                                <th style="text-align: right;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Juego 1 -->
+                            <tr data-category="Carreras" data-platform="Steam" data-status="Disponible">
+                                <td>
+                                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1551360/header.jpg" alt="Forza Horizon 5" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                </td>
+                                <td><strong>Forza Horizon 5</strong></td>
+                                <td>Turn 10 Studios</td>
+                                <td><span class="badge-role badge-role-admin">Carreras</span></td>
+                                <td>STEAM / XBOX</td>
+                                <td><strong>$59.99 USD</strong></td>
+                                <td>42 un.</td>
+                                <td><span class="badge-status badge-disponible">🟢 Disponible</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-juego" class="btn-icon" title="Editar" onclick="editGame('Forza Horizon 5', 'Turn 10 Studios', 'Carreras', 'STEAM / XBOX', '38.00', '59.99', 42, 'https://cdn.cloudflare.steamstatic.com/steam/apps/1551360/header.jpg', 'https://store.steampowered.com/app/1551360/')">✏️</a>
+                                        <button class="btn-icon danger" title="Eliminar" onclick="deleteGameRow(this)">🗑️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Juego 2 -->
+                            <tr data-category="Carreras" data-platform="PlayStation" data-status="Stock Bajo">
+                                <td>
+                                    <img src="https://gmedia.playstation.com/is/image/SIEPDC/gran-turismo-hub-keyart-01-en-08feb22?$1600px$" alt="Gran Turismo 7" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                </td>
+                                <td><strong>Gran Turismo 7</strong></td>
+                                <td>Polyphony Digital</td>
+                                <td><span class="badge-role badge-role-admin">Carreras</span></td>
+                                <td>PLAYSTATION 5</td>
+                                <td><strong>$69.99 USD</strong></td>
+                                <td>4 un.</td>
+                                <td><span class="badge-status badge-stock-bajo">🟡 Stock Bajo</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-juego" class="btn-icon" title="Editar" onclick="editGame('Gran Turismo 7', 'Polyphony Digital', 'Carreras', 'PLAYSTATION 5', '45.00', '69.99', 4, 'https://gmedia.playstation.com/is/image/SIEPDC/gran-turismo-hub-keyart-01-en-08feb22?$1600px$', 'https://store.playstation.com/')">✏️</a>
+                                        <button class="btn-icon danger" title="Eliminar" onclick="deleteGameRow(this)">🗑️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Juego 3 -->
+                            <tr data-category="Shooters" data-platform="Steam" data-status="Disponible">
+                                <td>
+                                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/782330/header.jpg" alt="DOOM Eternal" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                </td>
+                                <td><strong>DOOM Eternal</strong></td>
+                                <td>id Software</td>
+                                <td><span class="badge-role badge-role-super">Shooters</span></td>
+                                <td>STEAM / BETHESDA</td>
+                                <td><strong>$39.99 USD</strong></td>
+                                <td>58 un.</td>
+                                <td><span class="badge-status badge-disponible">🟢 Disponible</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-juego" class="btn-icon" title="Editar" onclick="editGame('DOOM Eternal', 'id Software', 'Shooters', 'STEAM / BETHESDA', '22.00', '39.99', 58, 'https://cdn.cloudflare.steamstatic.com/steam/apps/782330/header.jpg', 'https://store.steampowered.com/app/782330/')">✏️</a>
+                                        <button class="btn-icon danger" title="Eliminar" onclick="deleteGameRow(this)">🗑️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Juego 4 -->
+                            <tr data-category="Shooters" data-platform="EA" data-status="Agotado">
+                                <td>
+                                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1238810/header.jpg" alt="Battlefield 2042" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                </td>
+                                <td><strong>Battlefield 2042</strong></td>
+                                <td>DICE / EA</td>
+                                <td><span class="badge-role badge-role-super">Shooters</span></td>
+                                <td>STEAM / EA APP</td>
+                                <td><strong>$29.99 USD</strong></td>
+                                <td>0 un.</td>
+                                <td><span class="badge-status badge-agotado">🔴 Agotado</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-juego" class="btn-icon" title="Editar" onclick="editGame('Battlefield 2042', 'DICE / EA', 'Shooters', 'STEAM / EA APP', '18.00', '29.99', 0, 'https://cdn.cloudflare.steamstatic.com/steam/apps/1238810/header.jpg', 'https://store.steampowered.com/app/1238810/')">✏️</a>
+                                        <button class="btn-icon danger" title="Eliminar" onclick="deleteGameRow(this)">🗑️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Juego 5 -->
+                            <tr data-category="Aventura" data-platform="Steam" data-status="Disponible">
+                                <td>
+                                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg" alt="The Witcher 3: Wild Hunt" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                </td>
+                                <td><strong>The Witcher 3: Wild Hunt</strong></td>
+                                <td>CD Projekt Red</td>
+                                <td><span class="badge-role badge-role-vendedor">Aventura</span></td>
+                                <td>STEAM / GOG</td>
+                                <td><strong>$39.99 USD</strong></td>
+                                <td>85 un.</td>
+                                <td><span class="badge-status badge-disponible">🟢 Disponible</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-juego" class="btn-icon" title="Editar" onclick="editGame('The Witcher 3: Wild Hunt', 'CD Projekt Red', 'Aventura', 'STEAM / GOG', '20.00', '39.99', 85, 'https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg', 'https://store.steampowered.com/app/292030/')">✏️</a>
+                                        <button class="btn-icon danger" title="Eliminar" onclick="deleteGameRow(this)">🗑️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Juego 6 -->
+                            <tr data-category="Aventura" data-platform="PlayStation" data-status="Disponible">
+                                <td>
+                                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/header.jpg" alt="God of War (2018)" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                </td>
+                                <td><strong>God of War (2018)</strong></td>
+                                <td>Santa Monica Studio</td>
+                                <td><span class="badge-role badge-role-vendedor">Aventura</span></td>
+                                <td>STEAM / PLAYSTATION</td>
+                                <td><strong>$49.99 USD</strong></td>
+                                <td>33 un.</td>
+                                <td><span class="badge-status badge-disponible">🟢 Disponible</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-juego" class="btn-icon" title="Editar" onclick="editGame('God of War (2018)', 'Santa Monica Studio', 'Aventura', 'STEAM / PLAYSTATION', '30.00', '49.99', 33, 'https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/header.jpg', 'https://store.steampowered.com/app/1593500/')">✏️</a>
+                                        <button class="btn-icon danger" title="Eliminar" onclick="deleteGameRow(this)">🗑️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Juego 7 -->
+                            <tr data-category="Terror" data-platform="Steam" data-status="Disponible">
+                                <td>
+                                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/2050650/header.jpg" alt="Resident Evil 4 Remake" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                </td>
+                                <td><strong>Resident Evil 4 Remake</strong></td>
+                                <td>Capcom</td>
+                                <td><span class="badge-role badge-role-soporte" style="color: #f87171; border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.1);">Terror</span></td>
+                                <td>STEAM / CAPCOM</td>
+                                <td><strong>$59.99 USD</strong></td>
+                                <td>29 un.</td>
+                                <td><span class="badge-status badge-disponible">🟢 Disponible</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-juego" class="btn-icon" title="Editar" onclick="editGame('Resident Evil 4 Remake', 'Capcom', 'Terror', 'STEAM / CAPCOM', '35.00', '59.99', 29, 'https://cdn.cloudflare.steamstatic.com/steam/apps/2050650/header.jpg', 'https://store.steampowered.com/app/2050650/')">✏️</a>
+                                        <button class="btn-icon danger" title="Eliminar" onclick="deleteGameRow(this)">🗑️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Juego 8 -->
+                            <tr data-category="Terror" data-platform="Steam" data-status="Stock Bajo">
+                                <td>
+                                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1196590/header.jpg" alt="Resident Evil Village" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                </td>
+                                <td><strong>Resident Evil Village</strong></td>
+                                <td>Capcom</td>
+                                <td><span class="badge-role badge-role-soporte" style="color: #f87171; border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.1);">Terror</span></td>
+                                <td>STEAM / CAPCOM</td>
+                                <td><strong>$39.99 USD</strong></td>
+                                <td>5 un.</td>
+                                <td><span class="badge-status badge-stock-bajo">🟡 Stock Bajo</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-juego" class="btn-icon" title="Editar" onclick="editGame('Resident Evil Village', 'Capcom', 'Terror', 'STEAM / CAPCOM', '24.00', '39.99', 5, 'https://cdn.cloudflare.steamstatic.com/steam/apps/1196590/header.jpg', 'https://store.steampowered.com/app/1196590/')">✏️</a>
+                                        <button class="btn-icon danger" title="Eliminar" onclick="deleteGameRow(this)">🗑️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Juego 9 -->
+                            <tr data-category="Carreras" data-platform="EA" data-status="Disponible">
+                                <td>
+                                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/2488620/header.jpg" alt="F1 24" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                </td>
+                                <td><strong>F1 24</strong></td>
+                                <td>Codemasters / EA</td>
+                                <td><span class="badge-role badge-role-admin">Carreras</span></td>
+                                <td>STEAM / EA</td>
+                                <td><strong>$59.99 USD</strong></td>
+                                <td>47 un.</td>
+                                <td><span class="badge-status badge-disponible">🟢 Disponible</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-juego" class="btn-icon" title="Editar" onclick="editGame('F1 24', 'Codemasters / EA', 'Carreras', 'STEAM / EA', '35.00', '59.99', 47, 'https://cdn.cloudflare.steamstatic.com/steam/apps/2488620/header.jpg', 'https://store.steampowered.com/app/2488620/')">✏️</a>
+                                        <button class="btn-icon danger" title="Eliminar" onclick="deleteGameRow(this)">🗑️</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Juego 10 -->
+                            <tr data-category="Aventura" data-platform="Steam" data-status="Disponible">
+                                <td>
+                                    <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/header.jpg" alt="Cyberpunk 2077" class="table-img-thumb" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=100&q=80'">
+                                </td>
+                                <td><strong>Cyberpunk 2077</strong></td>
+                                <td>CD Projekt Red</td>
+                                <td><span class="badge-role badge-role-vendedor">Aventura</span></td>
+                                <td>STEAM / GOG</td>
+                                <td><strong>$59.99 USD</strong></td>
+                                <td>60 un.</td>
+                                <td><span class="badge-status badge-disponible">🟢 Disponible</span></td>
+                                <td style="text-align: right;">
+                                    <div style="display: inline-flex; gap: 6px;">
+                                        <a href="#modal-juego" class="btn-icon" title="Editar" onclick="editGame('Cyberpunk 2077', 'CD Projekt Red', 'Aventura', 'STEAM / GOG', '32.00', '59.99', 60, 'https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/header.jpg', 'https://store.steampowered.com/app/1091500/')">✏️</a>
+                                        <button class="btn-icon danger" title="Eliminar" onclick="deleteGameRow(this)">🗑️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         MODAL: AGREGAR / EDITAR JUEGO (Campos completos)
+         ========================================================================== -->
+    <div id="modal-juego" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title" id="gameModalTitle">
+                    <span>🎮</span> Agregar / Editar Videojuego
+                </h3>
+                <a href="#" class="btn-close-modal" aria-label="Cerrar modal">&times;</a>
+            </div>
+
+            <form id="gameForm" onsubmit="saveGame(event)">
+                <div class="modal-form-grid">
+                    <div class="col-span-2">
+                        <label class="form-label" for="gameName">Nombre del Videojuego</label>
+                        <input type="text" id="gameName" class="form-control" placeholder="Ej. Cyberpunk 2077: Phantom Liberty" required>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="gameDev">Desarrolladora / Estudio</label>
+                        <input type="text" id="gameDev" class="form-control" placeholder="Ej. CD Projekt Red" required>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="gameCategory">Categoría Oficial</label>
+                        <select id="gameCategory" class="form-control">
+                            <option value="Carreras">Carreras</option>
+                            <option value="Shooters">Shooters</option>
+                            <option value="Aventura">Aventura</option>
+                            <option value="Terror">Terror</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="gamePlatform">Plataforma</label>
+                        <select id="gamePlatform" class="form-control">
+                            <option value="STEAM / PC">STEAM / PC</option>
+                            <option value="STEAM / XBOX">STEAM / XBOX</option>
+                            <option value="PLAYSTATION 5">PLAYSTATION 5</option>
+                            <option value="STEAM / EA">STEAM / EA</option>
+                            <option value="NINTENDO SWITCH">NINTENDO SWITCH</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="gameStock">Unidades en Stock</label>
+                        <input type="number" id="gameStock" class="form-control" placeholder="40" min="0" required>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="costPrice">Precio de Costo ($ USD)</label>
+                        <input type="number" step="0.01" id="costPrice" class="form-control" placeholder="32.00" required>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="salePrice">Precio de Venta ($ USD)</label>
+                        <input type="number" step="0.01" id="salePrice" class="form-control" placeholder="59.99" required>
+                    </div>
+
+                    <div class="col-span-2">
+                        <label class="form-label" for="gameImage">URL de la Portada (Imagen)</label>
+                        <input type="url" id="gameImage" class="form-control" placeholder="https://cdn.cloudflare.steamstatic.com/steam/apps/.../header.jpg">
+                    </div>
+
+                    <div class="col-span-2">
+                        <label class="form-label" for="gameStoreLink">Enlace Tienda Oficial / Steam</label>
+                        <input type="url" id="gameStoreLink" class="form-control" placeholder="https://store.steampowered.com/app/...">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <a href="#" class="btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn-primary">
+                        <span>💾 Guardar en Catálogo</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts de interactividad y filtrado del catálogo -->
+    <script>
+        function openCreateGameModal() {
+            document.getElementById('gameModalTitle').innerHTML = '<span>🎮</span> Agregar Nuevo Videojuego';
+            document.getElementById('gameName').value = '';
+            document.getElementById('gameDev').value = '';
+            document.getElementById('gameCategory').value = 'Carreras';
+            document.getElementById('gamePlatform').value = 'STEAM / PC';
+            document.getElementById('costPrice').value = '';
+            document.getElementById('salePrice').value = '';
+            document.getElementById('gameStock').value = '25';
+            document.getElementById('gameImage').value = '';
+            document.getElementById('gameStoreLink').value = '';
+        }
+
+        function editGame(name, dev, cat, plat, cost, price, stock, img, link) {
+            document.getElementById('gameModalTitle').innerHTML = '<span>✏️</span> Editar Título: ' + name;
+            document.getElementById('gameName').value = name;
+            document.getElementById('gameDev').value = dev;
+            document.getElementById('gameCategory').value = cat;
+            document.getElementById('gamePlatform').value = plat;
+            document.getElementById('costPrice').value = cost;
+            document.getElementById('salePrice').value = price;
+            document.getElementById('gameStock').value = stock;
+            document.getElementById('gameImage').value = img;
+            document.getElementById('gameStoreLink').value = link;
+        }
+
+        function saveGame(e) {
+            e.preventDefault();
+            const name = document.getElementById('gameName').value;
+            alert('¡El título "' + name + '" se ha actualizado en el inventario GameZone!');
+            window.location.hash = '';
+        }
+
+        function deleteGameRow(btn) {
+            if (confirm('¿Eliminar este título del catálogo de inventario?')) {
+                const tr = btn.closest('tr');
+                tr.style.opacity = '0';
+                setTimeout(() => {
+                    tr.remove();
+                    filterInventory();
+                }, 200);
+            }
+        }
+
+        // Búsqueda y filtros múltiples
+        const searchInput = document.getElementById('gameSearchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const platformFilter = document.getElementById('platformFilter');
+        const stockFilter = document.getElementById('stockFilter');
+
+        function filterInventory() {
+            const query = searchInput.value.toLowerCase();
+            const cat = categoryFilter.value;
+            const plat = platformFilter.value;
+            const stock = stockFilter.value;
+            const rows = document.querySelectorAll('#inventoryTable tbody tr');
+            let count = 0;
+
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                const rowCat = row.getAttribute('data-category');
+                const rowPlat = row.getAttribute('data-platform');
+                const rowStatus = row.getAttribute('data-status');
+
+                const matchesQuery = text.includes(query);
+                const matchesCat = (cat === 'all' || rowCat === cat);
+                const matchesPlat = (plat === 'all' || rowPlat === plat || rowPlat.includes(plat));
+                const matchesStock = (stock === 'all' || rowStatus === stock);
+
+                if (matchesQuery && matchesCat && matchesPlat && matchesStock) {
+                    row.style.display = '';
+                    count++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            document.getElementById('inventoryCountText').innerText = 'Mostrando ' + count + ' juegos';
+        }
+
+        searchInput.addEventListener('input', filterInventory);
+        categoryFilter.addEventListener('change', filterInventory);
+        platformFilter.addEventListener('change', filterInventory);
+        stockFilter.addEventListener('change', filterInventory);
+    </script>
+</body>
+</html>
